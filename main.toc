@@ -1,0 +1,89 @@
+\xpg@aux {}{english}
+\contentsline {section}{\numberline {0.1}\textbf {Dedications}}{2}{section.0.1}%
+\contentsline {section}{\numberline {0.2}\textbf {Thanks}}{3}{section.0.2}%
+\contentsline {section}{\numberline {0.3}\textbf {Summary :}}{4}{section.0.3}%
+\contentsline {section}{\numberline {0.4}\textbf {Résume~:}}{5}{section.0.4}%
+\contentsline {section}{Acronyms}{7}{section.0.4}%
+\contentsline {section}{\numberline {0.5}General introduction}{11}{section.0.5}%
+\contentsline {chapter}{\numberline {1}Internship Environment}{12}{chapter.1}%
+\contentsline {section}{Introduction}{12}{section*.1}%
+\contentsline {subsection}{\numberline {1.0.1}\textbf {Conclusion}:}{17}{subsection.1.0.1}%
+\contentsline {section}{\numberline {1.1}\textbf {Chapter 2: General context of the project}}{18}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}\textbf {Introduction}}{18}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}\textbf {Fundamental concepts:}}{18}{subsection.1.1.2}%
+\contentsline {subsubsection}{\textbf {Cis (Customer Specification Interface):}}{18}{subsubsection*.2}%
+\contentsline {paragraph}{\textbf {What is CIS Interface?}}{18}{paragraph*.3}%
+\contentsline {paragraph}{\textbf {Where can the CIS interface be configured?}}{18}{paragraph*.4}%
+\contentsline {paragraph}{\textbf {Issuer background}}{18}{paragraph*.5}%
+\contentsline {paragraph}{\textbf {Acquirer background}}{19}{paragraph*.6}%
+\contentsline {subsubsection}{\textbf {Issuing and acquiring:}}{19}{subsubsection*.7}%
+\contentsline {subsubsection}{\textbf {Simplified flow diagram~:}}{19}{subsubsection*.8}%
+\contentsline {subsubsection}{\textbf {What is digital banking ?}}{20}{subsubsection*.9}%
+\contentsline {subsubsection}{\textbf {The main actors in the world of digital banking :}}{20}{subsubsection*.10}%
+\contentsline {subsubsection}{\textbf {How a transaction flows:}}{21}{subsubsection*.11}%
+\contentsline {subsubsection}{\textbf {Position of my solution in this ecosystem:}}{21}{subsubsection*.12}%
+\contentsline {subsubsection}{\textbf {The ISO 8583 protocol:}}{21}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {1.1.3}\textbf {Project context:}}{26}{subsection.1.1.3}%
+\contentsline {subsubsection}{\textbf {Problematic :}}{26}{subsubsection*.14}%
+\contentsline {subsubsection}{\textbf {Project objective:}}{27}{subsubsection*.15}%
+\contentsline {subsubsection}{\textbf {Study of the existing situation}}{27}{subsubsection*.16}%
+\contentsline {paragraph}{\textbf {Description of the existing}}{27}{paragraph*.17}%
+\contentsline {paragraph}{\textbf {Criticism of the existing}}{28}{paragraph*.18}%
+\contentsline {subsubsection}{\textbf {Proposed solution}}{28}{subsubsection*.19}%
+\contentsline {subsubsection}{\textbf {Indicative planning}}{29}{subsubsection*.20}%
+\contentsline {subsection}{\numberline {1.1.4}\textbf {Conclusion}}{30}{subsection.1.1.4}%
+\contentsline {section}{\numberline {1.2}Chapter 3: Project Analysis and Design}{30}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}\textbf {Introduction}}{30}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}\textbf {Analysis :}}{30}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}\textbf {Functional requirements:}}{30}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}\textbf {Non-functional requirements:}}{32}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}\textbf {Use case diagram:}}{33}{subsection.1.2.5}%
+\contentsline {subsubsection}{\textbf {Actor}}{33}{subsubsection*.21}%
+\contentsline {subsubsection}{\textbf {Main use cases}}{33}{subsubsection*.22}%
+\contentsline {subsubsection}{\textbf {Use Case Diagram:}}{34}{subsubsection*.23}%
+\contentsline {subsection}{\numberline {1.2.6}\textbf {Sequence diagram}}{35}{subsection.1.2.6}%
+\contentsline {subsubsection}{\textbf {General acquiring case:}}{35}{subsubsection*.24}%
+\contentsline {subsubsection}{\textbf {General issuing case:}}{36}{subsubsection*.25}%
+\contentsline {subsubsection}{\textbf {Case of acquiring authorization:}}{37}{subsubsection*.26}%
+\contentsline {subsubsection}{\textbf {Case authorization issuing:}}{39}{subsubsection*.27}%
+\contentsline {subsubsection}{\textbf {Reversal issuing case:}}{40}{subsubsection*.28}%
+\contentsline {subsubsection}{\textbf {Advice acquiring case:}}{41}{subsubsection*.29}%
+\contentsline {subsubsection}{\textbf {File upload issuing case:}}{42}{subsubsection*.30}%
+\contentsline {subsubsection}{\textbf {File upload in acquisition:}}{43}{subsubsection*.31}%
+\contentsline {subsection}{\numberline {1.2.7}\textbf {Activity diagram}}{44}{subsection.1.2.7}%
+\contentsline {subsubsection}{\textbf {Request for authorization for acquisition (Acquiring):}}{45}{subsubsection*.32}%
+\contentsline {subsubsection}{\textbf {Request for Issuing Authorization:}}{47}{subsubsection*.33}%
+\contentsline {subsubsection}{\textbf {Acquisition reversal:}}{49}{subsubsection*.34}%
+\contentsline {subsubsection}{\textbf {Reversal of issue (Issuing):}}{51}{subsubsection*.35}%
+\contentsline {subsubsection}{\textbf {Authorization Advice:}}{53}{subsubsection*.36}%
+\contentsline {subsubsection}{\textbf {File upload :}}{55}{subsubsection*.37}%
+\contentsline {subsection}{\numberline {1.2.8}\textbf {Architecture Channel}}{56}{subsection.1.2.8}%
+\contentsline {subsection}{\numberline {1.2.9}\textbf {Channel connect diagram}}{57}{subsection.1.2.9}%
+\contentsline {subsubsection}{\textbf {Abstract diagram:}}{57}{subsubsection*.38}%
+\contentsline {subsubsection}{\textbf {Incoming request:}}{58}{subsubsection*.39}%
+\contentsline {subsubsection}{\textbf {Outgoing response:}}{59}{subsubsection*.40}%
+\contentsline {subsubsection}{\textbf {Outgoing request:}}{59}{subsubsection*.41}%
+\contentsline {subsubsection}{\textbf {Incoming response:}}{60}{subsubsection*.42}%
+\contentsline {subsection}{\numberline {1.2.10}\textbf {Channel protocol diagram}}{61}{subsection.1.2.10}%
+\contentsline {subsubsection}{\textbf {Abstract diagram:}}{61}{subsubsection*.43}%
+\contentsline {subsubsection}{\textbf {Incoming request}}{62}{subsubsection*.44}%
+\contentsline {subsubsection}{\textbf {Incoming response}}{62}{subsubsection*.45}%
+\contentsline {subsubsection}{\textbf {Outgoing request}}{63}{subsubsection*.46}%
+\contentsline {subsubsection}{\textbf {Outgoing response}}{63}{subsubsection*.47}%
+\contentsline {subsection}{\numberline {1.2.11}\textbf {Conclusion :}}{63}{subsection.1.2.11}%
+\contentsline {section}{\numberline {1.3}Chapter 4: Implementing the Solution}{64}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}\textbf {Introduction :}}{64}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}\textbf {Connector microservice implementation:}}{65}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}\textbf {Implementation of the Protocol microservice}}{66}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}\textbf {CIS SDK Development}}{67}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}\textbf {Integration tests of migrated microservices:}}{68}{subsection.1.3.5}%
+\contentsline {subsection}{\numberline {1.3.6}\textbf {Conclusion :}}{74}{subsection.1.3.6}%
+\contentsline {section}{\numberline {1.4}Chapter 5: Architecture and technologies }{75}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}\textbf {Introduction :}}{75}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}\textbf {Functional architecture}}{76}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}\textbf {Application architecture: from C monolith to Java microservices :}}{76}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}\textbf {Main technologies used~:}}{78}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}\textbf {Java vs C Migration}}{84}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}\textbf {Conclusion :}}{85}{subsection.1.4.6}%
+\contentsline {section}{\numberline {1.5}\textbf {General conclusion:}}{85}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Bibliography:}{86}{section.1.6}%
