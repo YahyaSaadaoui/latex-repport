@@ -1,45 +1,34 @@
-# Compiled PDF
+# Output files
 *.pdf
-
-# LaTeX intermediate files
-*.aux
-*.bbl
-*.blg
-*.brf
-*.fls
-*.fdb_latexmk
-*.log
-*.out
-*.toc
-*.lof
-*.lot
-*.nav
-*.snm
-*.synctex.gz
-*.synctex(busy)
-*.run.xml
-
-# LaTeXmk and TeXShop files
 *.dvi
-*.xdv
 *.ps
 
-# Auto-generated files
-*.gz
+# LaTeX auxiliary/intermediate files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
 *.idx
 *.ilg
 *.ind
+*.lof
+*.log
+*.lot
 *.maf
 *.mtc*
+*.nav
 *.nlo
-*.nls
+*.out
+*.run.xml
+*.snm
+*.synctex*
+*.toc
 *.vrb
 
-# Mac-specific
-.DS_Store
-
-# Windows-specific
-Thumbs.db
-
-# VS Code
+# Editor files
 .vscode/
+.DS_Store
+Thumbs.db
+git add .
