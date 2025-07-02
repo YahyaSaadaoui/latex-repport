@@ -101,8 +101,8 @@ If you prefer not to use VS Code, you can compile directly from your terminal.
 
 **Yahya Saadaoui**
 
-- **Email:** [yahyasaadaoui2019@gmail.com]
-- **LinkedIn:** [[linkedin.com/in/yourprofile](https://www.linkedin.com/in/yahyasaadaoui/)
+- **Email:** yahyasaadaoui2019@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/yahyasaadaoui/
 
 ## 📄 License
 
