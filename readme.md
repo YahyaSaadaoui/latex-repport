@@ -99,7 +99,7 @@ If you prefer not to use VS Code, you can compile directly from your terminal.
 
 ## 👤 Author
 
-**Yahya Saadaoui*
+**Yahya Saadaoui**
 
 - **Email:** [yahyasaadaoui2019@gmail.com]
 - **LinkedIn:** [[linkedin.com/in/yourprofile](https://www.linkedin.com/in/yahyasaadaoui/)
