@@ -11,8 +11,10 @@ The project leverages a powerful stack including **Java, Spring Boot, Apache Kaf
 
 ### 📸 Report Preview
 
+<p align="center">
+  <img src="./media/report-cover-preview.png" alt="Report Cover" width="600"/>
+</p>
 
-![Report Cover](./media/report-cover-preview.png)
 
 ## ✨ Report Highlights
 
