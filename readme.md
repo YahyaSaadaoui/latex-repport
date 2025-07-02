@@ -1,9 +1,3 @@
-Of course. The original `README.md` file is functional but a bit disorganized and lacks a professional polish. A great README should be clear, easy to scan, and guide the user logically from what the project is to how to use it.
-
-Here is a completely rewritten, well-structured, and more professional version of your `README.md` file.
-
----
-
 # Thesis Report: Mastercard CIS Channel Migration
 
 This repository contains the LaTeX source code for my final-year engineering thesis. The report details the strategic migration of the Mastercard CIS (Customer Interface Specification) Channel from a legacy C-based monolithic system to a modern, cloud-native microservices architecture.
@@ -17,7 +11,6 @@ The project leverages a powerful stack including **Java, Spring Boot, Apache Kaf
 
 ### 📸 Report Preview
 
-*(Optional but recommended: Add a screenshot of your report's cover page here for a great visual first impression)*
 
 ![Report Cover](./media/report-cover-preview.png)
 
@@ -85,6 +78,7 @@ If you prefer not to use VS Code, you can compile directly from your terminal.
 
 1. Navigate to the project's root directory.
 2. Run the following command:
+
    ```bash
    latexmk -xelatex -synctex=1 -interaction=nonstopmode main.tex
    ```
