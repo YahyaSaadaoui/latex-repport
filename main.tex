@@ -1,67 +1,85 @@
-% preamble code
-
 \documentclass[12pt,a4paper]{report}
 
-% packages
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage[normalem]{ulem}
+% Layout and spacing
 \usepackage{geometry}
 \geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
-\usepackage{titlesec}
-\titleformat{\chapter}[block]
-  {\normalfont\huge\bfseries}
-  {Chapter \thechapter :}{1em}{}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{0pt}
 
-\titleformat{\section}{\normalfont\bfseries\fontsize{20}{24}\selectfont}{}{0pt}{}
+% Fonts and languages
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage{hyperref} % MUST be before polyglossia
+\hypersetup{hidelinks, pdfcreator={XeLaTeX}}
 
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguages{french,arabic}
-\usepackage{fontspec}
-\setmainfont{Times New Roman}
 \newfontfamily\arabicfont[Script=Arabic]{Amiri}
-\usepackage{setspace}
-\singlespacing
-\setlength{\parindent}{0pt}
-\usepackage{xcolor}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc}
-\usepackage{hyperref}
-\hypersetup{hidelinks,pdfcreator={XeLaTeX}}
-\usepackage{bidi}
-\usepackage{tocloft}
 
-% TOC adjustments
+% Title formatting
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\normalfont\huge\bfseries}
+  {Chapter \thechapter :}{1em}{}
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{20}{24}\selectfont}
+  {}{0pt}{}
+
+% Custom subsubsubsection
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand{\thesubsubsubsection}{\alph{subsubsubsection}}
+\newcommand{\subsubsubsection}[1]{%
+  \refstepcounter{subsubsubsection}%
+  \noindent\textbf{\thesubsubsubsection~--~#1}\par\vspace{0.5em}%
+  \addcontentsline{toc}{paragraph}{\thesubsubsubsection~--~#1}%
+}
+\usepackage{etoolbox}
+\pretocmd{\subsection}{\setcounter{subsubsubsection}{0}}{}{}
+\pretocmd{\subsubsection}{\setcounter{subsubsubsection}{0}}{}{}
+
+
+% Graphics and floats
+\usepackage{graphicx}
+\usepackage{float}
+
+% Tables
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{calc}
+
+% TOC customizations
+\usepackage{tocloft}
 \renewcommand{\cftchapfont}{\bfseries}
 \renewcommand{\cftchappagefont}{}
 \setlength{\cftchapnumwidth}{0pt}
 \setlength{\cftchapindent}{0pt}
 \setlength{\cftsecindent}{1.5em}
 \setlength{\cftsubsecindent}{3em}
+% \setlength{\cftparindent}{4.5em} % <-- Commented out: causes error if \paragraph not used
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{4}
 
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
+% Misc
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
 
-% to suppress chapter number in TOC entries
-\renewcommand{\numberline}[1]{}
-\include{customStyling}
 
 \begin{document}
 
 
-
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=6.6277in,height=1.65729in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image3.png}
+\includegraphics[width=6.6277in,height=1.65729in]{media/image3.png}
 \end{figure}
-
-
 \clearpage
-\hypertarget{dedications}{%
-\section{\texorpdfstring{\textbf{Dedications}}{Dedications}}\label{dedications}}
 
+
+
+\section{Dedications :}
 \begin{quote}
 I dedicate this modest work, with all my love and gratitude, to you, for
 your tenderness, your unwavering support, and the countless sacrifices
@@ -73,8 +91,8 @@ helped me to complete this project.
 \end{quote}
 \clearpage
 
-\hypertarget{thanks}{%
-\section{\texorpdfstring{\textbf{Thanks}}{Thanks}}\label{thanks}}
+
+\section{Thanks :}
 
 \begin{quote}
 First and foremost, my thanks also go to Mrs. Meriyem Chergui, my
@@ -130,8 +148,8 @@ reflection of a life path, marked by sacrifices and dedication.
 \end{quote}
 \clearpage
 
-\hypertarget{summary}{%
-\section{\texorpdfstring{\textbf{Summary :}}{Summary :}}\label{summary}}
+
+\section{Summary :}
 
 \begin{quote}
 This report describes my final year internship experience at HPS, during
@@ -174,9 +192,8 @@ skills, while contributing to a real, structuring, and high-impact
 project at HPS.
 \end{quote}
 \clearpage
-\hypertarget{ruxe9sume}{%
-\section{\texorpdfstring{\textbf{Résume~:}}{Résume~:}}\label{ruxe9sume}}
 
+\section{Résume :}
 \begin{quote}
 Ce rapport décrit mon expérience de stage de fin d'études chez HPS, au
 cours duquel j'ai travaillé sur un projet stratégique visant à migrer le
@@ -221,12 +238,12 @@ impact au sein de HPS.
 
 
 \begin{RTL}
-\section*{\textarabic{ملخص}}
+\section{ ملخص :}
 {\arabicfont
 
 يصف هذا التقرير تجربتي في التدريب النهائي في شركة HPS، حيث عملت على مشروع استراتيجي لنقل قناة Mastercard CIS من بنية أحادية قديمة بلغة C إلى بنية حديثة تعتمد على خدمات V4 المصغرة، باستخدام Java Spring Boot.
 
-على مدار هذه الأشهر، تمكنت من تطوير مهارات تقنية قوية من خلال التعامل مع كود C القديم، وتحليل الوظائف الحرجة لبروتوكول CIS وإعادة بناء هذه المنطق تدريجياً في Java، في بيئة موجهة نحو الخدمات المصغرة، محمولة باستخدام Docker ومنسقة عبر Kubernetes. كما شاركت في إعداد بيئة الاختبار، والتكامل المستمر، وتطوير مجموعة أدوات البرمجيات (SDK) المخصصة لبروتوكول CIS، بهدف مركزية وإعادة استخدام وظائف التعيين، وترميز TLV، ومعالجة حقول ISO8583.
+على مدار هذه الأشهر، تمكنت من تطوير مهارات تقنية قوية من خلال التعامل مع كود C القديم، وتحليل الوظائف الحرجة لبروتوكول CIS وإعادة بناء هذه المنطق تدريجياً في Java في بيئة موجهة نحو الخدمات المصغرة، محمولة باستخدام Docker ومنسقة عبر Kubernetes. كما شاركت في إعداد بيئة الاختبار، والتكامل المستمر، وتطوير مجموعة أدوات البرمجيات SDK المخصصة لبروتوكول CIS، بهدف مركزية وإعادة استخدام وظائف التعيين، وترميز TLV، ومعالجة حقول ISO8583.
 
 سمح لي هذا المشروع بتعميق فهمي لقطاع البنوك، لا سيما من خلال تدفقات الإصدار والاستحواذ، فضلاً عن أنواع الرسائل المختلفة: التفويض، الإلغاء، الإشعار وتحميل الملفات. وبذلك اكتسبت رؤية واضحة لآليات الاتصال بين مفتاح الدفع الإلكتروني وشبكة Mastercard، والقيود المتعلقة بالامتثال والأمان المرتبطة بها.
 
@@ -243,9 +260,8 @@ impact au sein de HPS.
 
 
 
-\hypertarget{acronyms}{%
-\section*{Acronyms}\label{acronyms}}
-\addcontentsline{toc}{section}{Acronyms}
+
+\section{Acronyms :}
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3} % spacing between rows
@@ -304,327 +320,183 @@ TTL  & Time To Live \\
 
 
 \section{General introduction}
-The electronic payments sector is undergoing a profound transformation,
-driven by evolving technologies, security requirements, and growing
-expectations for scalability, traceability, and interoperability. In
-this context, financial institutions are turning to more modern and
-resilient architectures to meet new international standards. This
-project, carried out within HPS, is part of this modernization process.
+In the high-stakes world of global finance, the performance and adaptability of electronic payment systems are not just a competitive advantage—they are a necessity. As a leader in this domain, HPS (Hightech Payment Systems) must continuously evolve its flagship PowerCARD platform. This report details my final-year internship project, which tackled a critical piece of technical debt at the heart of the PowerCARD ecosystem: the legacy Mastercard CIS (Customer Interface Specification) Channel.
 
-The project aims to completely migrate the Mastercard CIS Channel, a
-strategic component of the PowerCARD payment system, from a legacy
-architecture in C language (V4) to a new modular version in Java Spring
-Boot (V4). The CIS Channel plays a fundamental role in the processing of
-payment messages, ensuring the mapping and bidirectional conversion
-between the internal ISO8583 PowerCARD format and the external
-Mastercard CIS protocol.
+Written in C, the existing channel was functionally stable, but its monolithic design was a growing barrier to maintainability, scalability, and integration with modern cloud-native architectures. It represented a bottleneck that hindered agility and future innovation. My mission was to re-architect this component from the ground up, migrating it to a modern microservices paradigm using Java and Spring Boot.
 
-The old system, while robust, now has limitations in terms of
-maintainability, scalability, and integration with modern tools such as
-Kafka, Docker, or Kubernetes. The new architecture therefore adopts a
-microservices approach, splitting responsibilities between two main
-components:
+The core of this transformation was the strategic decoupling of the network-facing Connector from the business-logic-driven Protocol, orchestrated via technologies like Kafka, Docker, and Kubernetes. This was not merely a language translation, but a fundamental redesign aimed at enhancing resilience, simplifying maintenance, and aligning the system with CI/CD DevOps practices. This report provides a comprehensive account of this migration, from initial analysis to final implementation.
 
-\textbf{Protocol}: responsible for business processing and message
-mapping.
+This report is structured into five chapters:
 
-\textbf{Connector}: responsible for network communication via TCP/IP
-with the Mastercard system.
+\textbf{Chapter 1: Internship Environment}
 
-This report focuses on presenting this migration in detail, addressing
-the technical choices made, the advantages of the new architecture, as
-well as the different stages of design, implementation and testing. We
-will also analyze the transaction flows (Authorization, Reversal,
-Advice, File Upload), the processing logic on the Issuing and Acquiring
-sides, as well as the benefits brought by the adoption of modern
-technologies (Spring Boot, Kafka, OpenTelemetry, etc.).
+This chapter introduces HPS, its history, core business activities, organizational structure, and international presence. It also presents the training programs offered and the working environment that shaped this internship experience.
 
-The overall objective of this project is to strengthen the robustness
-and flexibility of the electronic payment system, while ensuring
-compliance with Mastercard standards and ensuring seamless
-interoperability with the PowerCARD V4 platform. This strategic
-migration represents a key step towards the modernization of electronic
-payment systems at HPS, paving the way for the seamless integration of
-future protocols (Base1, MDS, etc.).
+\textbf{Chapter 2: General Context of the Project}
+
+This section details the background of the Mastercard CIS protocol, the ISO 8583 message format, and the operational context within the PowerCARD ecosystem. It analyzes the limitations of the legacy C-based system, outlines the objectives of the migration, and introduces the proposed Java-based solution.
+
+\textbf{Chapter 3: Project Analysis and Design}
+
+This chapter outlines the functional and non-functional requirements of the new solution. It presents use case diagrams, sequence diagrams, and activity diagrams to illustrate the end-to-end message flow for both Issuing and Acquiring scenarios, and provides a high-level overview of the system architecture.
+
+\textbf{Chapter 4: Implementation of the Solution}
+
+The implementation details of the two microservices—Connector and Protocol—are explained, along with the integration of the CIS SDK and the setup of the testing environment. Screenshots and test cases are provided to demonstrate how different message types (Authorization, Reversal, Advice, File Upload) are processed.
+
+\textbf{Chapter 5: Architecture and Technologies}
+
+This final chapter presents the architecture adopted, compares the monolithic and microservices approaches, and highlights the main technologies used. A technical comparison between C and Java is also provided to justify the migration decisions, with particular focus on productivity, maintainability, and DevOps compatibility.
+
 
 
 \clearpage
 
-\chapter{Internship Environment}
-\chaptersubtitle{Introduction}
-\addcontentsline{toc}{section}{Introduction}
+\section{Chapter 1 : Internship Environment}
 
+\subsection{Introduction :}
 \begin{quote}
 In this section, I will introduce the host company by detailing its
 organizational chart, its activities, its fundamental values, with
 particular emphasis on its subsidiary in Morocco.
 \end{quote}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \protect\hypertarget{_Toc201954395}{}{}Presentation of the host organization:
-\end{enumerate}
-
+\subsection{1 - Presentation of the host organization:}
 \begin{quote}
-HPS is an internationally renowned Moroccan company specializing in
-electronic payment solutions. Founded in 1995, HPS has established
-itself as a leader in the field of payment systems, offering innovative
-and secure solutions tailored to the needs of financial institutions and
-large corporations around the world.
+HPS is an internationally renowned Moroccan company specializing in electronic payment solutions. Founded in 1995, HPS has established itself as a leader in the field of payment systems, offering innovative and secure solutions tailored to the needs of financial institutions and large corporations around the world.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=5.41667in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/infosHPS.png}
+\includegraphics[width=5.41667in]{media/infosHPS.png}
 \caption{HPS Morocco identity card}
 \label{fig:infosHPS}
 \end{figure}
 
-
-Since its inception, HPS has continued to grow and diversify. The company
-began by providing credit and debit card processing solutions and
-gradually expanded its portfolio to include mobile payment, online
-payment, and risk management solutions. HPS has also expanded its
-international presence, with offices and clients in over 85 countries.
+Since its inception, HPS has continued to grow and diversify. The company began by providing credit and debit card processing solutions and gradually expanded its portfolio to include mobile payment, online payment, and risk management solutions. HPS has also expanded its international presence, with offices and clients in over 85 countries.
 \end{quote}
 
-
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\item
-  \protect\hypertarget{_Toc201954396}{}{}HPS History:
-\end{enumerate}
+\subsection{2 - HPS History :}
 
 \begin{quote}
-HPS was born from its founders\textquotesingle{} vision to create
-innovative and secure electronic payment solutions to meet the needs of
-financial institutions. From the very beginning, HPS focused on
-developing cutting-edge technologies and quickly gained recognition in
-the national market.
+HPS was born from its founders' vision to create innovative and secure electronic payment solutions to meet the needs of financial institutions. From the very beginning, HPS focused on developing cutting-edge technologies and quickly gained recognition in the national market.
 
-In 1999, HPS marked a milestone with the launch of PowerCard, an
-integrated payment platform that transformed the management of bank
-cards and payment transactions. This flagship product enabled HPS to
-expand its operations internationally, attracting customers in Africa,
-the Middle East, Europe, and Asia.
+In 1999, HPS marked a milestone with the launch of PowerCard, an integrated payment platform that transformed the management of bank cards and payment transactions. This flagship product enabled HPS to expand its operations internationally, attracting customers in Africa, the Middle East, Europe, and Asia.
 
-Over the years, HPS has continued to innovate and diversify its
-offerings, consolidating its leadership position in the payment
-technology sector. In 2010, the acquisition of ICPS (Indian Ocean Card
-Processing Services) strengthened its presence in the international
-market and expanded its client portfolio.
+Over the years, HPS has continued to innovate and diversify its offerings, consolidating its leadership position in the payment technology sector. In 2010, the acquisition of ICPS (Indian Ocean Card Processing Services) strengthened its presence in the international market and expanded its client portfolio.
 
-Today, HPS is recognized as a major player in the field of electronic
-payment solutions, with a presence in more than 90 countries and a
-diverse customer base including banks, financial institutions, and
-payment operators.
+Today, HPS is recognized as a major player in the field of electronic payment solutions, with a presence in more than 90 countries and a diverse customer base including banks, financial institutions, and payment operators.
 \end{quote}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=5.7in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image10.png}
+\includegraphics[width=5.7in]{media/image10.png}
 \caption{HPS History}
 \label{fig:hpsHistory}
 \end{figure}
 
-
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\item
-  \protect\hypertarget{_Toc201954397}{}{}Main missions:
-\end{enumerate}
+\subsection{3 - Main missions :}
 
 \begin{quote}
-HPS is the invisible technology that makes simple, transparent, and
-secure payments possible, allowing people to create, share, and live.
+HPS is the invisible technology that makes simple, transparent, and secure payments possible, allowing people to create, share, and live.
 
-HPS enables the delivery of high-value solutions and services and
-ensures the smooth and secure execution of transactions across all
-possible payment channels and across all business sectors.
+HPS enables the delivery of high-value solutions and services and ensures the smooth and secure execution of transactions across all possible payment channels and across all business sectors.
 
-It is constantly working to enhance its suite of POWERCARD solutions for
-omnichannel electronic payment, which it deploys to its customers around
-the world.
+It is constantly working to enhance its suite of POWERCARD solutions for omnichannel electronic payment, which it deploys to its customers around the world.
 \end{quote}
 
 \clearpage
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\item
-  \protect\hypertarget{_Toc201954398}{}{}Main activities:
-\end{enumerate}
+\subsection{4 - Main activities:}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=2.5in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/spsHPS.png}
+\includegraphics[width=2.5in]{media/spsHPS.png}
 \caption{HPS activities}
 \label{fig:spsHPS}
 \end{figure}
 
-
 \begin{quote}
-Solutions: Omnichannel management of electronic payments in
-``on-premise'' mode through PowerCard Solutions.
+Solutions: Omnichannel management of electronic payments in ``on-premise'' mode through PowerCard Solutions.
 
-Processing: Management of national switching activities in Morocco and
-processing of transactions through the POWERCARD platform in SaaS mode.
+Processing: Management of national switching activities in Morocco and processing of transactions through the POWERCARD platform in SaaS mode.
 
-Services: Testing, software qualification and project management
-assistance for IT transformation projects.
+Services: Testing, software qualification and project management assistance for IT transformation projects.
 \end{quote}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\item
-  \protect\hypertarget{_Toc201954399}{}{}Main products:
-\end{enumerate}
+\subsection{5 - Main products :}
 
 \begin{quote}
-\textbf{PowerCard:} It is a payment card and mobile payment management
-platform. PowerCard enables financial institutions to efficiently manage
-financial transactions, issue payment cards, and provide mobile payment
-services.
+\textbf{PowerCard:} It is a payment card and mobile payment management platform. PowerCard enables financial institutions to efficiently manage financial transactions, issue payment cards, and provide mobile payment services.
 
-\textbf{SmartSwitch:} SmartSwitch is a payment switching solution that
-provides secure connectivity between financial sector stakeholders. It
-facilitates the routing of transactions between issuers, acquirers, and
-payment networks.
+\textbf{SmartSwitch:} SmartSwitch is a payment switching solution that provides secure connectivity between financial sector stakeholders. It facilitates the routing of transactions between issuers, acquirers, and payment networks.
 
-\textbf{PowerCard Connect:} This Payments Platform as a Service (PaaS)
-enables businesses to quickly launch customized payment services,
-reducing time to market.
+\textbf{PowerCard Connect:} This Payments Platform as a Service (PaaS) enables businesses to quickly launch customized payment services, reducing time to market.
 
-\textbf{ePower:} ePower is a mobile payment solution developed by HPS to
-enable secure, contactless payments via smartphones.
+\textbf{ePower:} ePower is a mobile payment solution developed by HPS to enable secure, contactless payments via smartphones.
 
-\textbf{Switchware:} Switchware is a comprehensive product suite
-dedicated to payment management for banks and financial institutions.
+\textbf{Switchware:} Switchware is a comprehensive product suite dedicated to payment management for banks and financial institutions.
 \end{quote}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
-\item
-  \protect\hypertarget{_Toc201954400}{}{}International presence:
-\end{enumerate}
+\subsection{6 - International presence :}
 
 \begin{quote}
-With offices in Africa, Europe, the Middle East, Asia, and North
-America, HPS is a truly global company. This international presence
-allows HPS to understand local specificities and offer solutions
-tailored to each market.
+With offices in Africa, Europe, the Middle East, Asia, and North America, HPS is a truly global company. This international presence allows HPS to understand local specificities and offer solutions tailored to each market.
 \end{quote}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=6in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image23.jpeg}
+\includegraphics[width=6in]{media/image23.jpeg}
 \caption{HPS International Presence}
 \label{fig:intlPresence}
 \end{figure}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{6}
-\item
-  \protect\hypertarget{_Toc201954401}{}{}Company organization chart:
-\end{enumerate}
+\subsection{7 - Company organization chart :}
 
 \begin{quote}
-In 2021, the HPS Group adopted a new organization that takes into
-account its new dimension and its international development. This
-organization gives the various entities of the Group increasing autonomy
-and guarantees the achievement of several levels of synergies between
-them. It also highlights two essential aspects for the future evolution
-of the HPS Group: customer support and sales development through the
-Market entity, and management of the integration and development of
-PowerCard solutions in its different versions and according to the two
-models under the responsibility of the Software Factory entity.
+In 2021, the HPS Group adopted a new organization that takes into account its new dimension and its international development. This organization gives the various entities of the Group increasing autonomy and guarantees the achievement of several levels of synergies between them. It also highlights two essential aspects for the future evolution of the HPS Group: customer support and sales development through the Market entity, and management of the integration and development of PowerCard solutions in its different versions and according to the two models under the responsibility of the Software Factory entity.
 
-Furthermore, the Group\textquotesingle s new organization reflects the
-consolidation of the two activities previously grouped within Processing
-(Payment \& Switching), following their sustained development over the
-past few years, both organically and through acquisitions. HPS has thus
-set up the Payments Services entity, responsible for processing payment
-transactions and services related to its operations, and has given the
-Switching activity a dedicated entity to support the development of
-electronic payment at the national level. The Group has also
-strengthened the prerogatives of the Corporate Services entity, which
-has a central and transversal role, enriched by the new functions linked
-to external growth and the management of the Group\textquotesingle s CSR
-issues. The operational deployment of the Group\textquotesingle s
-strategic orientations and the monitoring of its performance are ensured
-by the Executive Committee under the supervision of the General
-Management, which also relies on the Transformation Committee, which
-oversees the implementation and supervision of the
-Group\textquotesingle s transformation strategy.
+Furthermore, the Group's new organization reflects the consolidation of the two activities previously grouped within Processing (Payment \& Switching), following their sustained development over the past few years, both organically and through acquisitions. HPS has thus set up the Payments Services entity, responsible for processing payment transactions and services related to its operations, and has given the Switching activity a dedicated entity to support the development of electronic payment at the national level. The Group has also strengthened the prerogatives of the Corporate Services entity, which has a central and transversal role, enriched by the new functions linked to external growth and the management of the Group's CSR issues. The operational deployment of the Group's strategic orientations and the monitoring of its performance are ensured by the Executive Committee under the supervision of the General Management, which also relies on the Transformation Committee, which oversees the implementation and supervision of the Group's transformation strategy.
 \end{quote}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=6.4in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image24.png}
+\includegraphics[width=6.4in]{media/image24.png}
 \caption{HPS Organization Chart}
 \label{fig:hpsOrgChart}
 \end{figure}
 
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=6.4in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image25.png}
+\includegraphics[width=6.4in]{media/image25.png}
 \caption{HPS Organization Chart 2}
 \label{fig:hpsOrgChart2}
 \end{figure}
 
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{7}
-\item
-  \protect\hypertarget{_Toc201954402}{}{}Presentation of the training:
-\end{enumerate}
+\subsection{8 - Presentation of the training :}
 
 \begin{quote}
-From our first day at HPS, the company offers us training on the
-principles and values \hspace{0pt}\hspace{0pt}of HPS, as well as
-self-training via the HPS-EACADEMY platform.
+From our first day at HPS, the company offers us training on the principles and values of HPS, as well as self-training via the HPS-EACADEMY platform.
 
 Regarding these training courses:
 \end{quote}
 
 \begin{itemize}
-\item
-  Introduction to the Payments Industry
-\item
-  Integration into the HPS Group
-\item
-  PowerCard Solutions
-\item
-  PCI DSS
-\item
-  Norms and standards
+\item Introduction to the Payments Industry
+\item Integration into the HPS Group
+\item PowerCard Solutions
+\item PCI DSS
+\item Norms and standards
 \end{itemize}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4.8in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image26.png}
+\includegraphics[width=4.8in]{media/image26.png}
 \caption{HPS Training}
 \label{fig:hpsTraining}
 \end{figure}
 
-\hypertarget{conclusion}{%
-\subsection{\texorpdfstring{\textbf{Conclusion}:}{Conclusion:}}\label{conclusion}}
-
+\subsection{Conclusion :}
 \begin{quote}
-This chapter provided a comprehensive overview of the internship
-environment, introducing the host organization, its history, missions,
-core activities, and international presence. These elements helped to
-understand the framework in which the internship took place and the key
-aspects of the HPS company.
+This chapter provided a comprehensive overview of the internship environment, introducing the host organization, its history, missions, core activities, and international presence. These elements helped to understand the framework in which the internship took place and the key aspects of the HPS company.
 \end{quote}
 \clearpage
 
@@ -632,10 +504,9 @@ aspects of the HPS company.
 
 
 % Chapter 2
-\section{\texorpdfstring{\textbf{Chapter 2: General context of the
-project}}{Chapter 2: General context of the project}}\label{chapter-2-general-context-of-the-project}
-\subsection{\texorpdfstring{\textbf{Introduction}}{Introduction}}\label{introduction}
-
+\section{Chapter 2: General context of the
+project :}
+\subsection{Introduction}
 \begin{quote}
 The specification is the first step in a project. This step is crucial
 for the smooth running of the project. It consists of knowing and
@@ -646,13 +517,12 @@ objectives, and scope. In the second part, we will present the work
 methodology and planning.
 \end{quote}
 
-\hypertarget{fundamental-concepts}{%
-\subsection{\texorpdfstring{\textbf{Fundamental
-concepts:}}{Fundamental concepts:}}\label{fundamental-concepts}}
 
-\hypertarget{cis-customer-specification-interface}{%
-\subsubsection{\texorpdfstring{\textbf{Cis (Customer Specification
-Interface):}}{Cis (Customer Specification Interface):}}\label{cis-customer-specification-interface}}
+\subsection{1 - Fundamental concepts:}
+
+
+\subsubsubsection{Cis (Customer Specification
+Interface):}
 
 \begin{quote}
 This is Mastercard\textquotesingle s implementation of the ISO 8583-1987
@@ -663,18 +533,15 @@ between Customer Processing Systems (CPS) and
 Mastercard\textquotesingle s Dual Message System.
 \end{quote}
 
-\hypertarget{what-is-cis-interface}{%
-\paragraph{\texorpdfstring{\textbf{What is CIS
-Interface?}}{What is CIS Interface?}}\label{what-is-cis-interface}}
 
+\subsubsubsection{What is CIS Interface ? }
 \begin{quote}
 It is a Powercard interface designed to communicate with the Mastercard
 network for online authorization management.
 \end{quote}
 
-\hypertarget{where-can-the-cis-interface-be-configured}{%
-\paragraph{\texorpdfstring{\textbf{Where can the CIS interface be
-configured?}}{Where can the CIS interface be configured?}}\label{where-can-the-cis-interface-be-configured}}
+
+\subsubsubsection{Where can the CIS interface be configured ?}
 
 \begin{quote}
 We can configure the CIS interface in PowerCard from the following
@@ -688,37 +555,36 @@ protocol?}
 Here we find the mapping between the CIS protocol and the Powercard
 protocol.
 
-\includegraphics[width=5in,height=1.99042in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image27.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.4in]{media/image27.png}
+\caption{HPS Organization Chart}
+\label{fig:Issuer background}
+\end{figure}
+
 \end{quote}
 
-\protect\hypertarget{_Toc201954484}{}{}Figure 8 :CIS configuration
-interface
-
-\hypertarget{issuer-background}{%
-\paragraph{\texorpdfstring{\textbf{Issuer
-background}}{Issuer background}}\label{issuer-background}}
-
+\textbf{Issuer background}
 \begin{quote}
 As part of issuing an authorization request, Powercard uses the CIS
-interface to capture and process incoming messages from Visa, performing
+interface to capture and process incoming messages from MasterCard network, performing
 the necessary security checks associated with the issuing party and the
 mapping between the CIS protocol and the Powercard Switch protocol...
 \end{quote}
 
-\hypertarget{acquirer-background}{%
-\paragraph{\texorpdfstring{\textbf{Acquirer
-background}}{Acquirer background}}\label{acquirer-background}}
+
+
+\textbf{Acquirer background}
 
 \begin{quote}
-As part of acquiring an authorization request, Powercard uses the base1
-interface to process incoming messages from Visa, performing the
+As part of acquiring an authorization request, Powercard uses the CIS
+interface to process incoming messages from Mastercard Network, performing the
 necessary security checks associated with the acquiring party and the
 mapping between the Powercard Switch protocol and the CIS protocol...
 \end{quote}
 
-\hypertarget{issuing-and-acquiring}{%
-\subsubsection{\texorpdfstring{\textbf{Issuing and
-acquiring:}}{Issuing and acquiring:}}\label{issuing-and-acquiring}}
+
+\subsubsubsection{Issuing and acquiring: }
 
 \begin{quote}
 \textbf{Issuing:}This is the bank that issued the
@@ -731,16 +597,18 @@ network.
 \end{quote}
 
 
-\subsubsection{\texorpdfstring{\textbf{Simplified flow
-diagram~:}}{Simplified flow diagram~:}}\label{simplified-flow-diagram}
+\subsubsubsection{Simplified flow diagram :}
 
-\includegraphics[width=6.10918in,height=2.20398in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image28.png}
-
-\protect\hypertarget{_Toc201954485}{}{}Figure 9 : Explanatory diagram of
-the entry and exit of the message in tcp/ip
+\begin{figure}[H]
+\centering
+\includegraphics[width=5in]{media/image28.png}
+\caption{Explanatory diagram of
+the entry and exit of the message in tcp/ip}
+\label{fig:fig9}
+\end{figure}
 
 \begin{quote}
-Each received message starts with a structured header: the first 4 bytes
+Each received message starts with a structured header : the first 4 bytes
 indicate the message length, followed by the protocol identifier (ISO),
 the PowerCARD header, then the message type (MTI) and the
 primary/secondary bitmaps that indicate the fields present. The data
@@ -753,10 +621,14 @@ included. This structure guarantees a clear and adaptable reading of
 ISO8583 messages within PowerCARD.
 \end{quote}
 
-\includegraphics[width=7.37731in,height=2.99251in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image29.jpeg}
 
-\protect\hypertarget{_Toc201954486}{}{}Figure 10 : Explanatory diagram
-of the two message flows
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{media/image29.jpg}
+\caption{Explanatory diagram
+of the two message flows}
+\label{figure}
+\end{figure}
 
 \begin{quote}
 This figure illustrates the two possible communication flows between the
@@ -768,40 +640,32 @@ Mastercard network and the Switch via Channel V4:
   \begin{quote}
   \textbf{In acquiring}: it is the Switch that initiates the
   communication. It generates a transaction message (Authorization,
-  Reversal, Advice, etc.), which passes through Kafka to the Protocol
-  service (where the ISO ↔ CIS mapping is performed), then passes
-  through the Connector which sends the message to the Mastercard
-  network. The response follows the reverse path.
+  Reversal, Advice, File Upload ), which passes through Kafka to the Protocol service (where the ISO ↔ CIS mapping is performed), then passes through the Connector which sends the message to the Mastercard network. The response follows the reverse path.
   \end{quote}
 \item
   \begin{quote}
-  \textbf{In issuing} : here, it is the Mastercard network that
-  initiates the communication. The incoming message first arrives at the
-  Connector, is passed to the Protocol for processing and mapping, and
-  then injected into Kafka to be consumed by the Switch.
+  \textbf{In issuing}: here, it is the Mastercard network that
+  initiates the communication. The incoming message first arrives at the The connector is passed to the Protocol for processing and mapping, and then injected into Kafka to be consumed by the Switch.
   \end{quote}
 \end{itemize}
 
 \begin{quote}
-Kafka serves as an asynchronous messaging layer enabling resilience and
+Kafka serves as an asynchronous messaging layer, enabling resilience and
 traceability of flows between components.
 \end{quote}
 
-\hypertarget{what-is-digital-banking}{%
-\subsubsection{\texorpdfstring{\textbf{What is digital banking
-?}}{What is digital banking ?}}\label{what-is-digital-banking}}
+
+\subsubsubsection{What is digital banking ?}
 
 \begin{quote}
-Digital electronic banking refers to all the technologies that enable
+Digital electronic banking refers to all technologies that enable
 secure and traceable electronic payments. It includes bank cards,
 payment terminals, electronic payment switches, networks (Visa,
 Mastercard), and internal banking systems.
 \end{quote}
 
-\hypertarget{the-main-actors-in-the-world-of-digital-banking}{%
-\subsubsection{\texorpdfstring{\textbf{The main actors in the world of
-digital banking
-:}}{The main actors in the world of digital banking :}}\label{the-main-actors-in-the-world-of-digital-banking}}
+
+\subsubsubsection{The main actors in the world of digital banking:}
 
 \begin{quote}
 The electronic money system is based on several actors who interact to
@@ -842,9 +706,8 @@ enable a secure transaction to be carried out:
 intermediary
 \end{quote}
 
-\hypertarget{how-a-transaction-flows}{%
-\subsubsection{\texorpdfstring{\textbf{How a transaction
-flows:}}{How a transaction flows:}}\label{how-a-transaction-flows}}
+
+\subsubsubsection{How a transaction flows : }
 
 \begin{quote}
 When a customer makes a card payment:
@@ -878,9 +741,8 @@ When a customer makes a card payment:
   \end{quote}
 \end{itemize}
 
-\hypertarget{position-of-my-solution-in-this-ecosystem}{%
-\subsubsection{\texorpdfstring{\textbf{Position of my solution in this
-ecosystem:}}{Position of my solution in this ecosystem:}}\label{position-of-my-solution-in-this-ecosystem}}
+
+\subsubsubsection{Position of my solution in this ecosystem:}
 
 \begin{quote}
 The project I worked on aims to reimplement this channel in the form of
@@ -929,9 +791,8 @@ every message transmitted between actors follows the correct rules,
 formats and protocols, while ensuring security and compliance.
 \end{quote}
 
-\hypertarget{the-iso-8583-protocol}{%
-\subsubsection{\texorpdfstring{\textbf{The ISO 8583
-protocol:}}{The ISO 8583 protocol:}}\label{the-iso-8583-protocol}}
+
+\subsubsubsection{The ISO 8583 protocol:}
 
 \begin{itemize}
 \item
@@ -957,10 +818,13 @@ indicating the general function of the message (authorization request,
 response, etc.)
 \end{quote}
 
-\includegraphics[width=6.35065in,height=2.87582in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image30.png}
 
-\protect\hypertarget{_Toc201954487}{}{}Figure 11 : Explanatory diagram
-of MTI
+\begin{figure}[H]
+\centering
+\includegraphics[width=6in]{media/image30.png}
+\caption{Explanatory diagram of MTI }
+\label{fig:hpsTraining}
+\end{figure}
 
 Bitmap: A bitmap is used to indicate the data elements present in a
 message.
@@ -1071,16 +935,19 @@ Each V4 channel is based on three layers:
 \item
   \textbf{Internal Channel Services (Protocol/Connector)}
 \end{itemize}
+\clearpage
 
-\begin{itemize}
-\item
-  \textbf{Connector:}
-\end{itemize}
 
-\includegraphics[width=6.31605in,height=3.54559in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image31.png}
+\textbf{Connector:}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.31605in,height=3.54559in]{media/image31.png}
+\caption{Diagram of the
+structure of the abstract connector}
+\label{fig:hpsTraining}
+\end{figure}
 
-\protect\hypertarget{_Toc201954488}{}{}Figure 12 : Diagram of the
-structure of the abstract connector
+
 
 \begin{itemize}
 \item
@@ -1115,21 +982,24 @@ module provides advanced system traceability and observability
 capabilities. Finally, the ChannelAdapter offers utilities for sending
 network responses and updating connection status.
 \end{quote}
+\clearpage
 
-\begin{itemize}
-\item
+
   \textbf{Protocol}
-\end{itemize}
 
-\includegraphics[width=6.71322in,height=3.73766in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image32.png}
 
-\protect\hypertarget{_Toc201954489}{}{}Figure 13 : Diagram of the
-structure of the abstract protocol
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.31605in,height=3.54559in]{media/image32.png}
+\caption{Diagram of the
+structure of the abstract protocol}
+\label{fig:diagramAbPo}
+\end{figure}
 
 \begin{itemize}
 \item
   \begin{quote}
-  Source: PwcChannelSwitch Source
+  Source: PwcChannelSwitchSource
   \end{quote}
 \item
   \begin{quote}
@@ -1233,12 +1103,15 @@ structure of the abstract protocol
   \textbf{The properties of a CIS message:}
 \end{itemize}
 
-\begin{quote}
-\includegraphics[width=6.17089in,height=0.65058in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image33.png}
-\end{quote}
 
-\protect\hypertarget{_Toc201954490}{}{}Figure 14 : Diagram of the CIS
-message structure
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.31605in]{media/image33.png}
+\caption{Diagram of the CIS
+message structure}
+\label{fig:DiagramMS}
+\end{figure}
+
 
 \begin{quote}
 This diagram describes the structure of a message as it is processed in
@@ -1256,13 +1129,9 @@ is essential to ensure the correct interpretation and compatibility of
 messages between PowerCARD and the Mastercard network.
 \end{quote}
 
-\hypertarget{project-context}{%
-\subsection{\texorpdfstring{\textbf{Project
-context:}}{Project context:}}\label{project-context}}
 
-\hypertarget{problematic}{%
-\subsubsection{\texorpdfstring{\textbf{Problematic
-:}}{Problematic :}}\label{problematic}}
+\subsection{2 - Project context:}
+\subsubsubsection{Problematic : }
 
 \begin{quote}
 Migrating the PowerCARD Switch CIS channel is a strategic imperative to
@@ -1323,78 +1192,44 @@ Mastercard network and to ensure the future evolution of the PowerCARD
 Switch platform.
 \end{quote}
 
-\hypertarget{project-objective}{%
-\subsubsection{\texorpdfstring{\textbf{Project
-objective:}}{Project objective:}}\label{project-objective}}
+
+\subsubsubsection{Project objective:}
 
 \begin{quote}
 The PowerCARD Switch Customer Interface Specifications (CIS) channel
 migration project from its current C language implementation to a new
-Java version has the following objectives:
-\end{quote}
-
+Java version has the following objectives.
 \begin{itemize}
 \item
-  \begin{quote}
-  \emph{Modernize the technical infrastructure}: Replacing monolithic C
-  code with a Java/Spring Boot microservices architecture to improve the
-  flexibility, scalability and resilience of the PowerCARD Switch
-  platform.
-  \end{quote}
+  \emph{Modernize the technical infrastructure}: Replacing monolithic C code with a Java/Spring Boot microservices architecture to improve the flexibility, scalability and resilience of the PowerCARD Switch platform.
+
 \item
-  \begin{quote}
-  \emph{Improve code maintainability and security}: Benefit from
-  Java\textquotesingle s advantages in terms of automatic memory
-  management, exception handling, and a rich ecosystem of libraries and
-  development tools, thus reducing the risk of vulnerabilities and
-  facilitating long-term maintenance.
-  \end{quote}
+  \emph{Improve code maintainability and security}: Benefit from Java's advantages in terms of automatic memory management, exception handling, and a rich ecosystem of libraries and development tools, thus reducing the risk of vulnerabilities and facilitating long-term maintenance.
+
 \item
-  \begin{quote}
-  \emph{Ensure seamless integration with existing architecture}: Ensure
-  optimal interoperability between the CIS channel and other Java/Spring
-  Boot microservices of PowerCARD Switch V4, by adopting consistent
-  communication and integration standards.
-  \end{quote}
+  \emph{Ensure seamless integration with existing architecture}: Ensure optimal interoperability between the CIS channel and other Java/Spring Boot microservices of PowerCARD Switch V4, by adopting consistent communication and integration standards.
+
 \item
-  \begin{quote}
-  \emph{Simplify the processing of ISO 8583 messages}: Implement tools
-  and processes to facilitate the identification and processing of
-  encoded fields (TLV, BER, etc.), by using the XML field description
-  file and capitalizing on the team\textquotesingle s expertise.
-  \end{quote}
+  \emph{Simplify the processing of ISO 8583 messages}: Implement tools and processes to facilitate the identification and processing of encoded fields (TLV, BER, etc.), by using the XML field description file and capitalizing on the team’s expertise.
+
 \item
-  \begin{quote}
-  \emph{Optimizing communication with the Mastercard network}: Ensure
-  fast, reliable and secure communication with the Mastercard network,
-  in compliance with the latest CIS protocol standards and
-  specifications.
-  \end{quote}
+  \emph{Optimizing communication with the Mastercard network}: Ensure fast, reliable and secure communication with the Mastercard network, in compliance with the latest CIS protocol standards and specifications.
+
 \item
-  \begin{quote}
-  \emph{Reduce maintenance and operating costs}: Reduce costs associated
-  with maintaining Docker images and resolving security vulnerabilities,
-  through the use of Java and modern development practices.
-  \end{quote}
+  \emph{Reduce maintenance and operating costs}: Reduce costs associated with maintaining Docker images and resolving security vulnerabilities, through the use of Java and modern development practices.
 \end{itemize}
+
+\end{quote}
 
 \begin{quote}
 Achieving these objectives will ensure the sustainability of the
 PowerCARD Switch platform, improve its operational efficiency and ensure
 its ability to meet the future needs of the electronic payments market.
 \end{quote}
+\clearpage
 
-\hypertarget{study-of-the-existing-situation}{%
-\subsubsection{\texorpdfstring{\textbf{Study of the existing
-situation}}{Study of the existing situation}}\label{study-of-the-existing-situation}}
-
-\begin{itemize}
-\item ~
-  \hypertarget{description-of-the-existing}{%
-  \paragraph{\texorpdfstring{\textbf{Description of the
-  existing}}{Description of the existing}}\label{description-of-the-existing}}
-\end{itemize}
-
+\subsubsubsection{Study of the existing situation :}
+\textbf{Description of the existing}
 \begin{quote}
 The current Mastercard CIS message processing system is based on a
 monolithic architecture developed in C language, integrated into the
@@ -1416,17 +1251,8 @@ or smooth error management, which limits the system\textquotesingle s
 resilience, particularly in the event of load peaks or partial failures.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{criticism-of-the-existing}{%
-  \paragraph{\texorpdfstring{\textbf{Criticism of the
-  existing}}{Criticism of the existing}}\label{criticism-of-the-existing}}
-\end{itemize}
-
 \begin{quote}
 The main shortcomings of the V4 architecture are:
-\end{quote}
-
 \begin{itemize}
 \item
   \textbf{Strong coupling of business and network code}: ISO ↔ CIS
@@ -1447,37 +1273,31 @@ The main shortcomings of the V4 architecture are:
   \textbf{Complex maintenance}: Requires C-skilled developers with good
   knowledge of legacy code.
 \end{itemize}
+\end{quote}
 
-\hypertarget{proposed-solution}{%
-\subsubsection{\texorpdfstring{\textbf{Proposed
-solution}}{Proposed solution}}\label{proposed-solution}}
+\subsubsubsection{Proposed solution :}
 
 \begin{quote}
 The solution is to migrate the Mastercard CIS channel to a microservices
 architecture in Java Spring Boot, compatible with the PowerCARD V4
 version.
-
 This new architecture is based on two independent microservices:
-\end{quote}
-
 \begin{itemize}
 \item
-  \begin{quote}
   \textbf{Protocol}: responsible for CIS ↔ ISO 8583 mapping and business
   logic.
-  \end{quote}
 \item
-  \begin{quote}
   \textbf{Connector}: in charge of TCP/IP network communication with
   Mastercard.
-  \end{quote}
 \end{itemize}
 
-\begin{quote}
-\textbf{The advantages of this solution are numerous:}
 \end{quote}
 
-\begin{itemize}
+
+
+\begin{quote}
+    \textbf{The advantages of this solution are numerous:}
+    \begin{itemize}
 \item
   \textbf{Separation of responsibilities}: Business processing is
   completely separated from network logic.
@@ -1494,6 +1314,9 @@ This new architecture is based on two independent microservices:
   \textbf{Modern observability}: Integration with OpenTelemetry,
   centralized logs, and real-time monitoring.
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
 This migration represents a fundamental architectural change, making the
@@ -1501,9 +1324,7 @@ system more flexible, scalable and ready for future protocols such as
 BASE1 or MDS.
 \end{quote}
 
-\hypertarget{indicative-planning}{%
-\subsubsection{\texorpdfstring{\textbf{Indicative
-planning}}{Indicative planning}}\label{indicative-planning}}
+\subsubsubsection{Indicative planning :}
 
 \begin{quote}
 The Mastercard CIS Channel migration project to a Java Spring Boot
@@ -1536,13 +1357,15 @@ remaining flows: Reversal, Advice and File Upload, the full
 implementation of which is planned after the defense.
 \end{quote}
 
-\includegraphics[width=7.54861in,height=3.64028in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image34.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.31605in,height=3.54559in]{media/image34.png}
+\caption{Gantt Chart Diagram}
+\label{fig:gantt}
+\end{figure}
 
-\protect\hypertarget{_Toc201954491}{}{}Figure 15 : Gantt Chart Diagram
 
-\hypertarget{conclusion-1}{%
-\subsection{\texorpdfstring{\textbf{Conclusion}}{Conclusion}}\label{conclusion-1}}
-
+\subsection{Conclusion : }
 \begin{quote}
 This second chapter laid the conceptual and technical foundations for
 the Mastercard CIS Channel migration project to a modern Java Spring
@@ -1567,14 +1390,12 @@ of future protocols.
 This chapter thus constitutes the theoretical basis on which the
 implementation phase, presented in the following chapter, was based.
 \end{quote}
+\clearpage
 
-\hypertarget{chapter-3-project-analysis-and-design}{%
-\section{Chapter 3: Project Analysis and
-Design}\label{chapter-3-project-analysis-and-design}}
+% Chapter 3
+\section{Chapter 3: Project Analysis and Design}
 
-\hypertarget{introduction-1}{%
-\subsection{\texorpdfstring{\textbf{Introduction}}{Introduction}}\label{introduction-1}}
-
+\subsection{Introduction}
 \begin{quote}
 This chapter presents the functional analysis and business design of the
 Mastercard CIS Channel Migration Solution. Its objective is to describe
@@ -1588,14 +1409,9 @@ expected operation of the solution, without addressing here the
 technological choices or aspects related to implementation patterns.
 \end{quote}
 
-\hypertarget{analysis}{%
-\subsection{\texorpdfstring{\textbf{Analysis
-:}}{Analysis :}}\label{analysis}}
 
-\hypertarget{functional-requirements}{%
-\subsection{\texorpdfstring{\textbf{Functional
-requirements:}}{Functional requirements:}}\label{functional-requirements}}
-
+\subsection{1 - Analysis :}
+\subsubsubsection{Functional requirements :}
 \begin{quote}
 This section describes the functional requirements of the new PowerCARD
 Switch Customer Interface Specifications (CIS) channel, focusing on the
@@ -1606,8 +1422,6 @@ key components: Message Management, Connector, Protocol, and CIS SDK.
 The system must support the processing of all message types, in both
 streams (acquisition and emission), whether requests or responses. The
 main message types include:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1627,14 +1441,14 @@ main message types include:
   \emph{File Upload}: Deferred transmission of batches of transactions.
   \end{quote}
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
 \emph{\uline{Connector:}}
-
 The Connector is responsible for communication with the Mastercard
 network and must ensure the following functionalities:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1708,14 +1522,15 @@ network and must ensure the following functionalities:
   \emph{TCP/IP Event Interceptor}: Intercept TCP/IP events.
   \end{quote}
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
 \emph{\uline{Protocol:}}
 
 The Protocol is responsible for processing messages and communicating
 with the Switch and must provide the following functionalities:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1771,6 +1586,9 @@ with the Switch and must provide the following functionalities:
   \emph{Field Mapping}: Perform mapping of all message fields.
   \end{quote}
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
 \emph{\uline{CIS SDK:}}
@@ -1778,8 +1596,6 @@ with the Switch and must provide the following functionalities:
 The CIS SDK provides tools and functions to facilitate the development
 and integration of the CIS channel and must ensure the following
 functionalities:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1811,10 +1627,11 @@ functionalities:
   network messages, special param loader, ...).
   \end{quote}
 \end{itemize}
+\end{quote}
 
-\hypertarget{non-functional-requirements}{%
-\subsection{\texorpdfstring{\textbf{Non-functional
-requirements:}}{Non-functional requirements:}}\label{non-functional-requirements}}
+
+
+\subsubsubsection{Non functional requirements:}
 
 \begin{quote}
 This section describes the non-functional requirements for the new
@@ -1858,21 +1675,14 @@ thus allowing for rapid diagnosis of problems and optimization of
 performance. This involves the collection of metrics, logs, and traces.
 \end{quote}
 
-\hypertarget{use-case-diagram}{%
-\subsection{\texorpdfstring{\textbf{Use case
-diagram:}}{Use case diagram:}}\label{use-case-diagram}}
 
-\begin{itemize}
-\item ~
-  \hypertarget{actor}{%
-  \subsubsection{\texorpdfstring{\textbf{Actor}}{Actor}}\label{actor}}
-\end{itemize}
-
+\subsubsubsection{Use case diagram:}
+\begin{quote}
+    \textbf{Actor}
+\end{quote}
 \begin{quote}
 As part of the migration of the Mastercard CIS Channel to the V4
 architecture, the main players identified are:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1887,21 +1697,19 @@ architecture, the main players identified are:
   acquiring banks).
   \end{quote}
 \end{itemize}
+\end{quote}
 
+
+
+\begin{quote}
 These two actors interact directly with the Mastercard CIS Channel,
 which acts as a translator and router between the two message formats.
+\end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{main-use-cases}{%
-  \subsubsection{\texorpdfstring{\textbf{Main use
-  cases}}{Main use cases}}\label{main-use-cases}}
-\end{itemize}
+\textbf{Main use cases}
 
 \begin{quote}
 The main use cases that structure the operation of the solution are:
-\end{quote}
-
 \begin{itemize}
 \item
   \begin{quote}
@@ -1933,28 +1741,31 @@ The main use cases that structure the operation of the solution are:
     Send the mapped message to the Mastercard network via the Connector
   \end{itemize}
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
 These use cases cover all expected functional flows, whether
 authorization, reversal, advice or file upload messages.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{use-case-diagram-1}{%
-  \subsubsection{\texorpdfstring{\textbf{Use Case
-  Diagram:}}{Use Case Diagram:}}\label{use-case-diagram-1}}
-\end{itemize}
+\begin{quote}
+    \textbf{Use Case Diagram:}
+\end{quote}
 
 \begin{quote}
 The diagram above illustrates the main use cases of the Mastercard CIS
 Channel (V4) in the context of the migration carried out.
 \end{quote}
 
-\includegraphics[width=6.25436in,height=2.4724in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image35.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=7in]{media/image35.png}
+\caption{Use Case Diagram Schema}
+\label{fig:UseCaseD}
+\end{figure}
 
-\protect\hypertarget{_Toc201954492}{}{}Figure 16 : Use Case Diagram
-Schema
 
 \begin{quote}
 The system is positioned between two main actors: on one side, the
@@ -1994,21 +1805,15 @@ the logical independence of the Protocol and Connector components, each
 assuming a specific role in the processing chain.
 \end{quote}
 
-\hypertarget{sequence-diagram}{%
-\subsection{\texorpdfstring{\textbf{Sequence
-diagram}}{Sequence diagram}}\label{sequence-diagram}}
-
-\begin{itemize}
-\item ~
-  \hypertarget{general-acquiring-case}{%
-  \subsubsection{\texorpdfstring{\textbf{General acquiring
-  case:}}{General acquiring case:}}\label{general-acquiring-case}}
-\end{itemize}
-
-\includegraphics[width=7.13862in,height=3.76042in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image36.png}
-
-\protect\hypertarget{_Toc201954493}{}{}Figure 17 : General Sequence
-Diagram
+\subsubsubsection{Sequence diagram :}
+\textbf{General acquiring case:}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.13862in,height=2.76042in]{media/image36.png}
+\caption{General Sequence Diagram}
+\label{fig:gantt}
+\end{figure}
+% \clearpage
 
 \begin{quote}
 The presented diagram illustrates the complete flow of an Acquiring
@@ -2029,7 +1834,7 @@ This message is published on a specific Kafka topic (protocol ↔ switch
 topic), facilitating communication between the Switch and the protocol
 module (Protocol).
 
-Step 2: Consumption and transformation to CIS
+\textbf{Step 2: Consumption and transformation to CIS}
 
 The Protocol consumes this message and transforms it into the CIS format
 used by the Mastercard network.
@@ -2040,7 +1845,7 @@ BuildAutReqToNw inspired by C code migrated to Java.
 The produced CIS message is then published to a second Kafka topic
 (connector ↔ protocol) to allow the Connector to use it.
 
-Step 3: Network Transmission
+\textbf{Step 3: Network Transmission}
 
 The Connector consumes this CIS message and physically transmits it to
 the Mastercard network via TCP communication (socket).
@@ -2059,28 +1864,28 @@ transformed into a return.
 The Connector produces a CIS response message on the Kafka topic
 (connector ↔ protocol).
 
-Step 6: Remapping to ISO
+\textbf{Step 6: Remapping to ISO}
 
 The Protocol consumes the CIS response and transforms it back into the
 internal ISO 8583 format, understandable by the Switch.
 
-Step 7: Processing by the Switch
+\textbf{Step 7: Processing by the Switch}
 
 The PowerCARD Switch consumes this ISO response and processes it
 (validation, database update, return to the POS or e-commerce).
 \end{quote}
+\clearpage
 
-\begin{itemize}
-\item ~
-  \hypertarget{general-issuing-case}{%
-  \subsubsection{\texorpdfstring{\textbf{General issuing
-  case:}}{General issuing case:}}\label{general-issuing-case}}
-\end{itemize}
+\begin{quote}
+ \textbf{General issuing case:}   
+\end{quote}
 
-\includegraphics[width=7.10423in,height=2.60249in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image37.png}
-
-\protect\hypertarget{_Toc201954494}{}{}Figure 18 : Sequence diagram of
-emission case
+\begin{figure}[H]
+\centering
+\includegraphics[width=7.10423in,height=2.60249in]{media/image37.png}
+\caption{Sequence diagram of emission case}
+\label{fig:SDEC}
+\end{figure}
 
 \begin{quote}
 This diagram illustrates the flow of a request initiated by the
@@ -2137,17 +1942,16 @@ The CIS Connector consumes the CIS response from Kafka, and physically
 sends it via TCP to the Mastercard network.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{case-of-acquiring-authorization}{%
-  \subsubsection{\texorpdfstring{\textbf{Case of acquiring
-  authorization:}}{Case of acquiring authorization:}}\label{case-of-acquiring-authorization}}
-\end{itemize}
+\begin{quote}
+    \textbf{Case of acquiring authorization:}
+\end{quote}
 
-\includegraphics[width=7.21985in,height=2.8089in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image38.png}
-
-\protect\hypertarget{_Toc201954495}{}{}Figure 19 : Sequence diagram for
-autorisation in acquisition
+\begin{figure}[H]
+\centering
+\includegraphics[width=7.21985in,height=2.8089in]{media/image38.png}
+\caption{Sequence diagram for autorisation in acquisition}
+\label{fig:SDAA}
+\end{figure}
 
 \begin{quote}
 This diagram shows the complete flow of an authorization request (AUTH
@@ -2193,17 +1997,11 @@ The Switch processes the request:
 
 \begin{itemize}
 \item
-  \begin{quote}
   Checking authorization rules
-  \end{quote}
 \item
-  \begin{quote}
   Balance Check
-  \end{quote}
 \item
-  \begin{quote}
   Anti-fraud control
-  \end{quote}
 \end{itemize}
 
 \begin{quote}
@@ -2232,17 +2030,16 @@ The CIS Connector consumes the message on pwc-net-out and sends the AUTH
 REPLY response to the Mastercard network via TCP.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{case-authorization-issuing}{%
-  \subsubsection{\texorpdfstring{\textbf{Case authorization
-  issuing:}}{Case authorization issuing:}}\label{case-authorization-issuing}}
-\end{itemize}
+\begin{quote}
+    \textbf{Case authorization issuing:}
+\end{quote}
 
-\includegraphics[width=6.97452in,height=2.54278in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image39.png}
-
-\protect\hypertarget{_Toc201954496}{}{}Figure 20 : sequence diagram for
-authorization issuing case
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.97452in,height=2.54278in]{media/image39.png}
+\caption{sequence diagram for authorization issuing case}
+\label{fig:SDAIC}
+\end{figure}
 
 \begin{quote}
 This diagram describes the reversal request flow initiated on the
@@ -2280,19 +2077,17 @@ This topic allows routing to the CIS Connector.
 The CIS Connector consumes the CIS 0400 message from pwc-net-out → then
 sends it via TCP/IP to the Mastercard network.
 \end{quote}
+\clearpage
+\begin{quote}
+\textbf{Reversal issuing case:}  
+\end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{reversal-issuing-case}{%
-  \subsubsection{\texorpdfstring{\textbf{Reversal issuing
-  case:}}{Reversal issuing case:}}\label{reversal-issuing-case}}
-\end{itemize}
-
-\includegraphics[width=7.95813in,height=3.23377in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image40.png}
-
-\protect\hypertarget{_Toc201954497}{}{}Figure 21 : Sequence Diagram of
-the reversal acquisition
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.95813in,height=2.23377in]{media/image40.png}
+\caption{Sequence Diagram of the reversal acquisition}
+\label{fig:SDRA}
+\end{figure}
 \begin{quote}
 This diagram illustrates the processing of a reversal request initiated
 by the Mastercard network to the PowerCARD Switch, in issuing mode.
@@ -2337,17 +2132,16 @@ The CIS Connector consumes the 0410 message from Kafka, and sends it to
 the Mastercard network in response to the initial request.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{advice-acquiring-case}{%
-  \subsubsection{\texorpdfstring{\textbf{Advice acquiring
-  case:}}{Advice acquiring case:}}\label{advice-acquiring-case}}
-\end{itemize}
+\begin{quote}
+\textbf{Advice acquiring :}
+\end{quote}
 
-\includegraphics[width=7.05923in,height=2.81006in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image41.png}
-
-\protect\hypertarget{_Toc201954498}{}{}Figure 22 : sequence diagram of
-reversal acquisition
+\begin{figure}[H]
+\centering
+\includegraphics[width=7.05923in,height=2.81006in]{media/image41.png}
+\caption{sequence diagram of advice acquisition}
+\label{fig:SDAA}
+\end{figure}
 
 \begin{quote}
 This diagram describes the Authorization Advice (0120) message flow
@@ -2385,17 +2179,16 @@ The CIS Connector consumes the 0130 message and transmits it to the
 Mastercard network, finalizing the advice processing.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{file-upload-issuing-case}{%
-  \subsubsection{\texorpdfstring{\textbf{File upload issuing
-  case:}}{File upload issuing case:}}\label{file-upload-issuing-case}}
-\end{itemize}
+\begin{quote}
+\textbf{File upload issuing case:}
+\end{quote}
 
-\includegraphics[width=5.99367in,height=3.71696in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image42.png}
-
-\protect\hypertarget{_Toc201954499}{}{}Figure 23 : sequence diagram of
-the emission authorization
+\begin{figure}[H]
+\centering
+\includegraphics[width=6in,height=1\textheight,keepaspectratio]{media/image42.png}
+\caption{sequence diagram of the emission file upload}
+\label{fig:SDEA}
+\end{figure}
 
 \begin{quote}
 This diagram describes the Authorization Advice message flow in issuing
@@ -2458,17 +2251,16 @@ The CIS Connector then forwards this CIS 0130 message to the Mastercard
 network, finalizing the advice flow.
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{file-upload-in-acquisition}{%
-  \subsubsection{\texorpdfstring{\textbf{File upload in
-  acquisition:}}{File upload in acquisition:}}\label{file-upload-in-acquisition}}
-\end{itemize}
+\begin{quote}
+\textbf{File upload in acquisition:}
+\end{quote}
 
-\includegraphics[width=7.54861in,height=2.97986in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image43.png}
-
-\protect\hypertarget{_Toc201954500}{}{}Figure 24 : File upload sequence
-diagram
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=1\textheight,keepaspectratio]{media/image43.png}
+\caption{Sequence diagram in the acquisition of file upload}
+\label{fig:FUSD}
+\end{figure}
 
 \begin{quote}
 This diagram describes the file maintenance request flow initiated on
@@ -2514,269 +2306,156 @@ file update request), and publishes it to Kafka for the Switch.
 The PowerCARD Switch consumes the ISO 1314 message and completes
 processing the update request.
 \end{quote}
+\clearpage
 
-\hypertarget{activity-diagram}{%
-\subsection{\texorpdfstring{\textbf{Activity
-diagram}}{Activity diagram}}\label{activity-diagram}}
+\subsubsubsection{Activity diagram :}
+\begin{quote}
+\textbf{Request for authorization for acquisition :}
+\end{quote}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=1\textheight,keepaspectratio]{media/acq-auth-req-activity.png}
+\caption{Activity Diagram Acquisition Authorization Request}
+\label{fig:ADAAR}
+\end{figure}
+
+\begin{quote}
+The activity diagram depicts the full life-cycle of an acquiring-side authorisation, beginning with the Switch emitting an ISO 0100 request and ending with either a normal ISO 0110 reply or an error response. After the Switch submits the 0100, the Protocol CIS module translates it into a CIS 0200 message and publishes that frame on the pwc-net-out Kafka topic. A Connector CIS service consumes the record, conveys it to Mastercard over a TCP session, and the system enters a wait state for the remote CIS 0210 reply. When the 0210 arrives it is republished on pwc-net-in, re-consumed by Protocol CIS, reformatted into ISO 0110, and forwarded to the Switch for delivery to the business application—thus completing the positive path. Every critical hop carries its own exception branch: a Kafka publish failure (pub err), TCP transport failure (conn err), subscription failure on the inbound topic (sub err), message-parsing anomaly (parse err), or network timeout/negative acknowledgement (timeout / NACK). Whichever of these contingencies is triggered, control converges on a single “Return ISO error” action, ensuring that the Switch receives a syntactically valid but negative ISO response (typically RC 06, 91 or 96) while operational logs and alerts capture the root cause. Consequently, the diagram highlights both the nominal processing flow and the error-handling fabric that preserves transactional integrity under adverse conditions.
+\end{quote}
+\clearpage
+
+\begin{quote}
+\textbf{Request for Issuing Authorization:}
+\end{quote}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{media/iss-auth-req-activity.png}
+\caption{Activity Diagram Schema Authorization Request Issuing}
+\label{fig:ADSARI}
+\end{figure}
+\clearpage
+
+\begin{quote}
+This activity diagram captures the end-to-end life-cycle of an issuing-side authorisation request originating from Mastercard’s CIS network (0100).
+The flow starts once the 0100 frame reaches the PowerCARD ecosystem: the Connector component ingests the message and publishes it to the pwc-net-in Kafka topic. Protocol CIS immediately consumes the record, performs a rigorous CIS→ISO conversion (producing an ISO 1100), and republishes the transformed message to pwc-partitioner. The Switch’s authorisation engine then executes all business and risk checks; upon success it emits an ISO 1110 reply to pwc-author-out.
+The reply traverses the reverse path: Protocol CIS converts ISO 1110 back to CIS 0110, places it on pwc-net-out, and the Connector delivers the TCP frame to Mastercard.
+At every asynchronous hop—publish, subscribe, conversion, processing, and final TCP delivery—dedicated error guards are shown (labels such as pub err, sub err, conv err, proc err, tcp err). Any of these anomalies triggers an immediate divergence to the red Error / Reject gateway, enforcing a single, auditable exit for negative outcomes before the diagram terminates. The structure therefore emphasises both the nominal “happy path” and the consolidated error-handling strategy that guarantees determinism and observability across the Kafka-centric micro-pipeline.
+\end{quote}
+\clearpage
+
+
+\begin{quote}
+\textbf{Acquisition reversal acquisition:}    
+\end{quote}
+    
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{media/acq-rev-auth-req.png}
+\caption{Activity Diagram Reversal Acquisition}
+\label{fig:ADRA}
+\end{figure}
+\clearpage
+
+\begin{quote}
+The activity chart depicts the life-cycle of an acquiring authorisation request that originates inside the Switch and is routed to Mastercard.
+The flow begins when the Switch receives an ISO 0100 message and performs a full syntactic and business-rule validation.
 \begin{itemize}
-\item ~
-  \hypertarget{request-for-authorization-for-acquisition-acquiring}{%
-  \subsubsection{\texorpdfstring{\textbf{Request for authorization for
-  acquisition
-  (Acquiring):}}{Request for authorization for acquisition (Acquiring):}}\label{request-for-authorization-for-acquisition-acquiring}}
+\item If the message fails validation the run terminates at a central Log | Alert | Error action.
+\item Otherwise, the Switch extracts the required data elements, builds a CIS 0200, and attempts to publish it to the pwc-net-out Kafka topic.
+A first decision node checks whether the publication succeeded. Any failure (e.g., broker unavailability) leads directly to the error-handling action mentioned above. If the record is accepted, the Connector forwards the CIS 0200 to Mastercard over TCP and the system waits for a network reply.
+While waiting, a second decision evaluates whether a timeout or transport error has occurred.
+\item On such an event, control moves to a Retry gate: if retries are still permitted the logic loops back to the publication step; once the retry budget is exhausted the execution proceeds to the error-handling action.
+\item When a CIS response is received in time, the Connector publishes it to Kafka; Protocol CIS converts the payload to an ISO 0110, publishes that reply to pwc-author-out, and the Switch forwards the response to the requesting application.
+\end{itemize}
+Successful completion of these steps reaches the End Success terminator. All abnormal situations—validation failure, publication fault, connector error, unreachable network, or exhausted retries—merge at the Log | Alert | Error node before reaching the End Error terminator, guaranteeing consistent auditing and monitoring for every exception.
+
+\end{quote}
+\clearpage
+
+\begin{quote}
+\textbf{Reversal of issue issuing:}
+\end{quote}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{media/iss-rev-auth-req.png}
+\caption{Activity Diagram  Reversal Issuing}
+\label{fig:ACD}
+\end{figure}
+\clearpage
+
+\begin{quote}
+This flow describes how a reversal initiated by Mastercard (CIS 0420) propagates through the PowerCARD platform, is transformed, processed, and ultimately returned to the network, together with the points at which operational safeguards intervene if something goes wrong.
+The sequence starts when Mastercard delivers a CIS 0420 reversal message. The Connector CIS ingests the frame and tries to publish it to the inbound network topic pwc-net-in. Publication is immediately verified; if the broker rejects the record the flow is diverted to a unified Log → Alert → End Error branch, ensuring that upstream systems are notified and no orphaned reversal continues.
+When the broker accepts the record, Protocol CIS converts the payload to ISO 1420 and places it on pwc-author-out for the Switch. A second publication check safeguards this step in the same way.
+The Switch PowerCARD retrieves the ISO 1420, locates the original authorisation, performs the reversal logic, and assembles an ISO 1430 response. That response is sent back to Protocol CIS, converted to CIS 0430, and queued on pwc-net-out. A third publication gate again determines whether the process can continue or must fall back to the error channel.
+If the final broker write succeeds, the Connector CIS transmits the CIS 0430 over TCP to Mastercard. Receipt by the network closes the transaction and the diagram converges on End Success. At each broker interaction a “publish OK?” decision diamond routes failures to the same consolidated logging and alert mechanism, guaranteeing consistent error capture and termination across all stages.
+
+\end{quote}
+\clearpage
+
+\begin{quote}
+\textbf{Authorization Advice:}
+\end{quote}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{media/advice-auth-activity.png}
+\caption{Activity Diagram Advice }
+\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{quote}
+The diagram details the life-cycle of an incoming Mastercard authorisation advice (CIS 0120) that must be acknowledged by PowerCARD with a CIS 0130 and highlights the safeguards that protect each processing stage.
+1.	Network ingress : A CIS 0120 is received over TCP, forwarded by the Connector to the inbound Kafka topic pwc-net-in, and immediately consumed by Protocol CIS.
+2.	Normal processing : Protocol CIS parses the frame, converts it to ISO 1120, persists the ISO image, and triggers a status update in the PowerCARD transaction tables. When the record is flagged completed/confirmed, the module assembles a CIS 0130 acknowledgement and publishes it on the outbound topic pwc-net-out. The Connector subsequently relays the 0130 to Mastercard, ending the flow.
+3.	Protective branches :
+\begin{itemize}
+\item Parsing / validation failure → a minimal CIS 0130 with response code “96” (system malfunction) is published to a retry queue.
+\item Database error while updating tables → a CIS 0130 with response code “05” (do not honour) is returned and support is alerted.
+\item Kafka publish error for the outbound 0130 → the message is written to a retry topic for later replay and operations are notified.
+\item Publish error for the inbound 0120 → the original advice is logged and routed to a dead-letter topic to guarantee traceability.
+\item TCP timeout when sending 0130 back to Mastercard → the message is queued for automatic resend and the NOC is informed.
+Solid lines show the principal sequence; dotted lines branch to the above contingencies. Every error path converges on a controlled termination, ensuring that no advice is lost and that support teams receive the context required to intervene.
 \end{itemize}
 
-\includegraphics[width=1.20065in,height=8.1761in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image44.png}
-
-\protect\hypertarget{_Toc201954501}{}{}Figure 25 : Activity Diagram
-Acquisition Authorization Request
+\end{quote}
+\clearpage
 
 \begin{quote}
-This diagram illustrates the complete processing of an Authorization
-Request message in Acquiring mode, from its reception by the Switch to
-the return of the network response.
-
-The flow begins with the PowerCARD Switch receiving an ISO 0100 message.
-Upon receipt, the Switch triggers a function that extracts the relevant
-fields from the ISO message, constructs a CIS 0200 message, and
-publishes it to the pwc-net-out Kafka topic.
-
-The CIS Connector consumes this message and then sends it to the
-Mastercard network via TCP/IP. Once the request is sent, the system
-enters a phase where it waits for the network response. When Mastercard
-returns a CIS 0210 message, it is received by the CIS Connector and
-published to the pwc-net-in Kafka topic.
-
-The CIS Protocol then consumes the 0210 message and calls a function
-that interprets the CIS 0210 response and constructs the response
-message in ISO 0110 format. The ISO 0110 message is published to the
-Kafka topic intended for the Switch.
-
-Finally, the Switch consumes this message and transmits the response to
-the business application. The processing cycle is thus complete,
-ensuring accurate and structured tracking of the Authorization Request
-Acquiring flow.
+\textbf{File upload :}
 \end{quote}
 
-\begin{itemize}
-\item ~
-  \hypertarget{request-for-issuing-authorization}{%
-  \subsubsection{\texorpdfstring{\textbf{Request for Issuing
-  Authorization:}}{Request for Issuing Authorization:}}\label{request-for-issuing-authorization}}
-\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{media/file-upload-activity.png}
+\caption{Activity Diagram  file upload}
+\label{fig:DFileUp}
+\end{figure}
 
-\includegraphics[width=1.18158in,height=8.27795in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image45.png}
-
-\protect\hypertarget{_Toc201954502}{}{}Figure 26 : Activity Diagram
-Schema Authorization Request Issuing
+\clearpage
 
 \begin{quote}
-This diagram describes the processing of an Authorization Advice message
-in Issuing mode, where the Mastercard network initiates the
-communication.
+The flow describes a file upload update initiated by the Switch using ISO 1304, and completed only once Mastercard’s 0312 reply is translated back to ISO 1316.
 
-The process begins when Mastercard Network sends an Authorization Advice
-0120 message via TCP. The CIS Connector receives this message and
-publishes it to the pwc-net-in Kafka topic. Then, the CIS Protocol
-consumes this message and calls a function that performs the CIS → ISO
-conversion (usually to ISO 0100/1120), preparing a compliant message for
-the PowerCARD Switch.
+After the Switch initiates the ISO 1304 request, the Protocol module validates the input and, upon success, transforms it into a CIS 0302 message, builds the payload and publishes it to Kafka. The Connector forwards this message over TCP to Mastercard and enters a blocking wait state. If a network response is received within the expected window, the Connector republishes the CIS 0312 response to Kafka. The Protocol module then processes it, converts it into ISO 1316 format, and returns it to the Switch, finalizing the transaction.
 
-The Switch consumes this ISO message and performs its business
-processing: balance checks, scoring, authorization or refusal of the
-request. Once the decision is made, the Switch prepares a response (ISO
-0110/1130) and publishes it to Kafka (pwc-author-out).
-
-The ISO response is then consumed by the CIS Protocol, which calls a
-function to construct the CIS 0130 response. This response is published
-to Kafka (pwc-net-out), consumed by the CIS Connector, and then sent
-back to the Mastercard network.
-
-This flow ensures complete monitoring of the Authorization Advice
-initiated by Mastercard, while respecting the internal conversions and
-business logic of the Switch.
+Control safeguards are embedded at every critical step: conversion failures, Kafka publication issues, or response timeouts trigger a centralized error handler that logs the condition and safely terminates the operation, preventing incomplete updates from persisting in the system.
 \end{quote}
+\clearpage
 
-\begin{itemize}
-\item ~
-  \hypertarget{acquisition-reversal}{%
-  \subsubsection{\texorpdfstring{\textbf{Acquisition
-  reversal:}}{Acquisition reversal:}}\label{acquisition-reversal}}
-\end{itemize}
 
-\begin{quote}
-\includegraphics[width=4.59106in,height=7.78699in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image46.png}
-\end{quote}
+\subsubsubsection{Channel Architecture:}
 
-\protect\hypertarget{_Toc201954503}{}{}Figure 27 : Activity Diagram
-Reversal Acquisition
-
-\begin{quote}
-This diagram describes the processing flow of a Reversal Acquiring
-message, in the event that the PowerCARD Switch initiates a request to
-cancel a previous transaction to the Mastercard network.
-
-The process starts when the PowerCARD Switch prepares an ISO 1420
-Reversal Request message, often triggered by a failure, timeout, or
-client cancellation request.
-
-The Switch then calls the function that converts this ISO 1420 message
-into a CIS 0400 message that conforms to the Mastercard protocol.
-
-This CIS 0400 message is published to the pwc-net-out Kafka topic and
-consumed by the CIS Connector, which then routes it via TCP to the
-Mastercard network.
-
-The system then enters the response waiting phase. Upon receipt of the
-CIS 0410 response by Mastercard, the CIS Connector publishes this
-message to the pwc-net-in Kafka topic.
-
-The CIS Protocol consumes this response, calls the function that
-constructs the ISO response (ISO 1430 or other as appropriate).
-
-Finally, the PowerCARD Switch consumes this ISO response via Kafka and
-closes the Reversal processing, thus updating its internal databases.
-\end{quote}
-
-\begin{itemize}
-\item ~
-  \hypertarget{reversal-of-issue-issuing}{%
-  \subsubsection{\texorpdfstring{\textbf{Reversal of issue
-  (Issuing):}}{Reversal of issue (Issuing):}}\label{reversal-of-issue-issuing}}
-\end{itemize}
-
-\begin{quote}
-\includegraphics[width=1.78429in,height=8.60738in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image47.png}
-\end{quote}
-
-\protect\hypertarget{_Toc201954504}{}{}Figure 28 : Activity Diagram
-Query Reversal Issuing
-
-\begin{quote}
-This diagram illustrates the processing flow of a Reversal Issuing, i.e.
-a case where it is the Mastercard network that initiates a request to
-cancel a transaction by sending a CIS 0420 message.
-
-The process begins with the reception, in TCP, of the CIS 0420 message
-by the CIS Connector, which then publishes it on the Kafka topic
-pwc-net-in.
-
-The CIS Protocol consumes this message, calls the function that handles
-the issuance of a request and converts the message from CIS 0420 to ISO
-1420. The ISO message is then published on the pwc-partitioner topic for
-processing by the PowerCARD Switch.
-
-The Switch consumes this ISO message, identifies the transaction
-concerned and executes the corresponding cancellation operation (update
-of statuses, accounting cancellation, etc.).
-
-It then prepares an ISO response and publishes it to the Kafka topic
-pwc-author-out.
-
-This response is consumed by the CIS Protocol, which calls a function
-that converts it to a CIS 0430 message and then publishes it to
-pwc-net-out.
-
-Finally, the CIS Connector sends this CIS 0430 message to the Mastercard
-network, signaling that the cancellation has been successfully processed
-on the Switch side.
-\end{quote}
-
-\begin{itemize}
-\item ~
-  \hypertarget{authorization-advice}{%
-  \subsubsection{\texorpdfstring{\textbf{Authorization
-  Advice:}}{Authorization Advice:}}\label{authorization-advice}}
-\end{itemize}
-
-\begin{quote}
-\includegraphics[width=1.3531in,height=8.67532in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image48.png}
-\end{quote}
-
-\protect\hypertarget{_Toc201954505}{}{}Figure 29 : Activity Diagram
-Query Reversal Issuing
-
-\begin{quote}
-This diagram describes the processing flow of an Authorization Advice
-(CIS 0120) message, typical of issuing mode, when the Mastercard network
-initiates notification of a transaction status.
-
-The process begins with the CIS Connector receiving a CIS 0120 message
-via TCP. The CIS Connector publishes the message to the pwc-net-in Kafka
-topic.
-
-The CIS Protocol consumes the message, triggers the function that
-processes the emission mode for the advice message type, and performs
-the conversion from CIS 0120 to ISO 1120. This conversion is persisted
-in the PowerCARD database.
-
-The system then updates the status of the transaction in the database
-(confirmed or finalized status). The transaction is marked as completed
-to prevent any subsequent reprocessing attempts.
-
-Then, a function is called to prepare the response. The protocol
-constructs a CIS 0130 message (acknowledgement of the Advice) and
-publishes it to the Kafka topic pwc-net-out.
-
-Finally, the CIS Connector consumes this CIS 0130 message and returns it
-to the Mastercard network, thus closing the Advice flow.
-\end{quote}
-
-\begin{itemize}
-\item ~
-  \hypertarget{file-upload}{%
-  \subsubsection{\texorpdfstring{\textbf{File upload
-  :}}{File upload :}}\label{file-upload}}
-\end{itemize}
-
-\begin{quote}
-\includegraphics[width=1.08518in,height=9in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image49.png}
-\end{quote}
-
-\protect\hypertarget{_Toc201954506}{}{}Figure 30 : Activity Diagram
-Query Reversal Issuing
-
-\begin{quote}
-This diagram represents the processing of a File Update request
-initiated by the PowerCARD Switch in Acquiring mode.
-
-The flow begins when the Switch generates an ISO 1304 File Update
-Request message, based on an internal need (file update, configuration,
-etc.).
-
-The CIS Protocol receives this ISO 1304 message, calls the function that
-processes the file upload in transmit mode to convert it into a CIS 0302
-message, and constructs the appropriate message.
-
-The CIS 0302 is then published on the Kafka topic pwc-net-out to the CIS
-Connector.
-
-The Connector consumes this message and sends it to the Mastercard
-network via TCP/IP.
-
-Once the request is processed, Mastercard returns a CIS 0312 response
-message.
-
-The CIS Connector receives this response and publishes it to the Kafka
-topic pwc-net-in.
-
-The CIS Protocol consumes the message, calls the function that processes
-the message file upload response in transmit mode, and performs the
-conversion of the CIS 0312 response to an ISO 1314 message.
-
-Finally, this ISO 1314 message is sent to the PowerCARD Switch to
-finalize the update cycle.
-\end{quote}
-
-\hypertarget{architecture-channel}{%
-\subsection{\texorpdfstring{\textbf{Architecture
-Channel}}{Architecture Channel}}\label{architecture-channel}}
-
-\includegraphics[width=7.19457in,height=3.95867in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image50.png}
-
-\protect\hypertarget{_Toc201954507}{}{}Figure 31 : Microservices
-communication schema
+\begin{figure}[H]
+\centering
+\includegraphics[width=7.19457in,height=3.95867in]{media/image50.png}
+\caption{Microservices communication schema}
+\label{fig:MCS}
+\end{figure}
 
 \begin{quote}
 This diagram presents the general architecture of the authorization flow
@@ -2798,14 +2477,12 @@ ensures high availability and scalability of processing, while the use
 of gRPC for the security layer guarantees efficient and secure
 exchanges.
 \end{quote}
+\clearpage
 
-\hypertarget{channel-connect-diagram}{%
-\subsection{\texorpdfstring{\textbf{Channel connect
-diagram}}{Channel connect diagram}}\label{channel-connect-diagram}}
-
-\hypertarget{abstract-diagram}{%
-\subsubsection{\texorpdfstring{\textbf{Abstract
-diagram:}}{Abstract diagram:}}\label{abstract-diagram}}
+\subsubsubsection{Channel connect diagram :}
+\begin{quote}
+\textbf{Abstract diagram :}
+\end{quote}
 
 \begin{quote}
 The diagram above represents the abstract architecture of the Channel
@@ -2816,8 +2493,6 @@ implement a standardized and reusable network connector.
 
 The processing is divided into Kafka pipelines and abstract
 transformation functions:
-\end{quote}
-
 \begin{itemize}
 \item
   PwcChannelInboundConsumerSource receives inbound messages from the
@@ -2829,9 +2504,12 @@ transformation functions:
   Messages are then published to the protocol via PwcChannelProtocolSink
   on the pwc-net-in topic.
 \end{itemize}
+\end{quote}
+
+
 
 \begin{quote}
-In reverse:
+\textbf{In reverse :}
 \end{quote}
 
 \begin{itemize}
@@ -2847,7 +2525,7 @@ In reverse:
 \end{itemize}
 
 \begin{quote}
-The connector also integrates:
+\textbf{The connector also integrates :}
 \end{quote}
 
 \begin{itemize}
@@ -2865,17 +2543,19 @@ The connector also integrates:
 This decoupled, Kafka-based architecture enables asynchronous, scalable,
 and robust processing of Mastercard flows, while ensuring isolation
 between protocol logic and network transport.
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.03815in,height=3.38958in]{media/image51.png}
+\caption{Abstract connector schema}
+\label{fig:ACC}
+\end{figure}
 
-\includegraphics[width=6.03815in,height=3.38958in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image51.png}
 \end{quote}
 
-\protect\hypertarget{_Toc201954508}{}{}Figure 32 : Abstract connector
-schema
 
-\hypertarget{incoming-request}{%
-\subsubsection{\texorpdfstring{\textbf{Incoming
-request:}}{Incoming request:}}\label{incoming-request}}
-
+\begin{quote}
+\textbf{Incoming request:}
+\end{quote}
 \begin{quote}
 This flow describes the processing of an incoming request (e.g., an
 authorization request) within the Channel Connector microservice.
@@ -2900,14 +2580,18 @@ The message is then consumed by the Channel Protocol microservice for
 further processing.
 \end{quote}
 
-\includegraphics[width=6.22725in,height=2.48059in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image52.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.22725in,height=2.48059in]{media/image52.png}
+\caption{Incoming request explicative schema}
+\label{fig:IRES}
+\end{figure}
 
-\protect\hypertarget{_Toc201954509}{}{}Figure 33 : Incoming request
-explicative schema
+ 
 
-\hypertarget{outgoing-response}{%
-\subsubsection{\texorpdfstring{\textbf{Outgoing
-response:}}{Outgoing response:}}\label{outgoing-response}}
+\begin{quote}
+\textbf{Outgoing response:}
+\end{quote}
 
 \begin{quote}
 This flow describes the processing of an outgoing response within the
@@ -2924,14 +2608,17 @@ Finally, the connector publishes technical metrics on the observed
 response time, by sending a message on the pwc-metric topic.
 \end{quote}
 
-\includegraphics[width=6.84092in,height=2.37072in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image53.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.84092in,height=2.37072in]{media/image53.png}
+\caption{Outgoing response explicative schema}
+\label{fig:ORES}
+\end{figure}
+ \clearpage
 
-\protect\hypertarget{_Toc201954510}{}{}Figure 34 : Outgoing response
-explicative schema
-
-\hypertarget{outgoing-request}{%
-\subsubsection{\texorpdfstring{\textbf{Outgoing
-request:}}{Outgoing request:}}\label{outgoing-request}}
+\begin{quote}
+\textbf{Outgoing request:}
+\end{quote}
 
 \begin{quote}
 This flow describes the processing of an outgoing request (request
@@ -2948,14 +2635,16 @@ The message is then sent to the Mastercard network via the TCP
 connection.
 \end{quote}
 
-\includegraphics[width=6.78333in,height=1.72048in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image54.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.78333in,height=1.72048in]{media/image54.png}
+\caption{Outgoing request explicative schema}
+\label{fig:ORES}
+\end{figure}
 
-\protect\hypertarget{_Toc201954511}{}{}Figure 35 : Outgoing request
-explicative schema
-
-\hypertarget{incoming-response}{%
-\subsubsection{\texorpdfstring{\textbf{Incoming
-response:}}{Incoming response:}}\label{incoming-response}}
+\begin{quote}
+\textbf{Incoming response :}
+\end{quote}
 
 \begin{quote}
 This flow describes the processing of an incoming response (from
@@ -2979,23 +2668,26 @@ partition key consistent with the original context. The Channel Protocol
 will consume this message to reconstruct the full authorization.
 \end{quote}
 
-\includegraphics[width=6.70029in,height=2.03289in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image55.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.70029in,height=2.03289in]{media/image55.png}
+\caption{Incoming response explicative schema}
+\label{fig:IRES}
+\end{figure}
 
-\protect\hypertarget{_Toc201954512}{}{}Figure : Incoming response
-explicative schema
 
-\hypertarget{channel-protocol-diagram}{%
-\subsection{\texorpdfstring{\textbf{Channel protocol
-diagram}}{Channel protocol diagram}}\label{channel-protocol-diagram}}
 
-\hypertarget{abstract-diagram-1}{%
-\subsubsection{\texorpdfstring{\textbf{Abstract
-diagram:}}{Abstract diagram:}}\label{abstract-diagram-1}}
+\subsubsubsection{Channel protocol diagram}
+\begin{quote}
+\textbf{Abstract diagram:}
+\end{quote}
 
-\includegraphics[width=6.58396in,height=3.38664in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image56.png}
-
-\protect\hypertarget{_Toc201954513}{}{}Figure 37 : protocol abstract
-schema
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.58396in,height=3.38664in]{media/image56.png}
+\caption{protocol abstract schema}
+\label{fig:PBS}
+\end{figure}
 
 \begin{quote}
 The abstract diagram above represents the logical architecture of the
@@ -3037,9 +2729,9 @@ This modular approach makes it easy to implement new protocols, while
 respecting a robust and validated common base.
 \end{quote}
 
-\hypertarget{incoming-request-1}{%
-\subsubsection{\texorpdfstring{\textbf{Incoming
-request}}{Incoming request}}\label{incoming-request-1}}
+\begin{quote}
+\textbf{Incoming request}
+\end{quote}
 
 \begin{quote}
 The diagram below describes the processing flow of an incoming
@@ -3065,14 +2757,18 @@ etc.).
 Switch microservices then consume the message for business processing.
 \end{quote}
 
-\includegraphics[width=6.95121in,height=1.35379in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image57.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.95121in,height=1.35379in]{media/image57.png}
+\caption{Incoming request schema}
+\label{fig:IRS}
+\end{figure}
 
-\protect\hypertarget{_Toc201954514}{}{}Figure 38 : incoming request
-schema
 
-\hypertarget{incoming-response-1}{%
-\subsubsection{\texorpdfstring{\textbf{Incoming
-response}}{Incoming response}}\label{incoming-response-1}}
+\begin{quote}
+\textbf{Incoming response}
+\end{quote}
+
 
 \begin{quote}
 The following diagram describes the processing flow of an incoming
@@ -3094,14 +2790,17 @@ The message is then sent to the Connector via the pwc-net-in topic, to
 be transmitted to the external network.
 \end{quote}
 
-\includegraphics[width=6.82134in,height=1.33791in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image58.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.82134in,height=1.33791in]{media/image58.png}
+\caption{Incoming response schema}
+\label{fig:}
+\end{figure}
 
-\protect\hypertarget{_Toc201954515}{}{}Figure 39 : incoming response
-schema
 
-\hypertarget{outgoing-request-1}{%
-\subsubsection{\texorpdfstring{\textbf{Outgoing
-request}}{Outgoing request}}\label{outgoing-request-1}}
+\begin{quote}
+\textbf{Outgoing request}
+\end{quote}
 
 \begin{quote}
 This diagram illustrates the processing flow of an outgoing request to
@@ -3122,14 +2821,16 @@ The message is then published to the pwc-net-in topic to be transmitted
 to the Connector, which relays it to the external network.
 \end{quote}
 
-\includegraphics[width=6.79462in,height=1.77023in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image59.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.79462in,height=1.77023in]{media/image59.png}
+\caption{Outgoing request schema}
+\label{fig:}
+\end{figure}
 
-\protect\hypertarget{_Toc201954516}{}{}Figure 40 : outgoing request
-schema
-
-\hypertarget{outgoing-response-1}{%
-\subsubsection{\texorpdfstring{\textbf{Outgoing
-response}}{Outgoing response}}\label{outgoing-response-1}}
+\begin{quote}
+\textbf{Outgoing response}
+\end{quote}
 
 \begin{quote}
 Finally, the diagram below describes the processing of an outgoing
@@ -3149,14 +2850,15 @@ Switch microservices consume the message and continue business
 processing.
 \end{quote}
 
-\includegraphics[width=6.72766in,height=1.29849in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image60.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=6.72766in,height=1.29849in]{media/image60.png}
+\caption{Outgoing response schema}
+\label{fig:ORS}
+\end{figure} 
+\clearpage
 
-\protect\hypertarget{_Toc201954517}{}{}Figure 41 : outgoing response
-schema
-
-\hypertarget{conclusion-2}{%
-\subsection{\texorpdfstring{\textbf{Conclusion
-:}}{Conclusion :}}\label{conclusion-2}}
+\subsection{Conclusion :}
 
 This chapter established the functional and conceptual foundations of
 the Mastercard CIS protocol migration solution to the PowerCARD Switch
@@ -3185,13 +2887,15 @@ This analysis and design phase thus served as a key step to ensure a
 structured, coherent, and standards-compliant implementation one that
 meets the high demands of the banking and payments industry.
 
-\hypertarget{chapter-4-implementing-the-solution}{%
-\section{Chapter 4: Implementing the
-Solution}\label{chapter-4-implementing-the-solution}}
 
-\hypertarget{introduction-2}{%
-\subsection{\texorpdfstring{\textbf{Introduction
-:}}{Introduction :}}\label{introduction-2}}
+
+\clearpage
+
+\section{Chapter 4: Implementing the Solution}
+
+
+\subsection{Introduction
+:}
 
 This chapter presents the concrete technical implementation of the
 microservices developed during this project: Channel Protocol and
@@ -3206,27 +2910,36 @@ Online Product team, which provides a microservice skeleton generator
 called Channel Initializer, included in the pwc-switch-v4-test-tools
 project.
 
-\includegraphics[width=5.29167in,height=2.97881in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image61.jpeg}
 
-\protect\hypertarget{_Toc201954518}{}{}Figure 42 : screenshot of the
-tool channel initializer
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5.29167in,height=2.97881in]{media/image61.jpeg}
+\caption{Screenshot of the tool channel initializer}
+\label{fig:TCI}
+\end{figure} 
+
 
 This generator provides the basic architecture common to all channels
 developed around the Switch V4, and guarantees component consistency.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image62.jpg}
+\caption{Screenshot of the abstract skeleton of a channel cis}
+\label{fig:ASC}
+\end{figure} 
 
-\includegraphics[width=4.14583in,height=2.0625in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image62.jpg}
 
-\protect\hypertarget{_Toc201954519}{}{}Figure 43 : : screenshot of the
-abstract skeleton of a channel
 
-\hypertarget{connector-microservice-implementation}{%
-\subsection{\texorpdfstring{\textbf{Connector microservice
-implementation:}}{Connector microservice implementation:}}\label{connector-microservice-implementation}}
 
-\includegraphics[width=5.64967in,height=4.69792in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image63.jpg}
+\subsection{1 - Connector microservice implementation:}
 
-\protect\hypertarget{_Toc201954520}{}{}Figure 44 : screenshot of the
-connector microservice structure
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image63.jpg}
+\caption{Screenshot of the connector microservice structure}
+\label{fig:CMS}
+\end{figure} 
 
 The Channel Connector microservice relies on several internal
 dependencies: a channel core, an abstract SDK for the protocol, a
@@ -3261,14 +2974,16 @@ able to be migrated and stabilized in the Connector microservice,
 respecting Java best practices and the overall architecture of the
 project.
 
-\hypertarget{implementation-of-the-protocol-microservice}{%
-\subsection{\texorpdfstring{\textbf{Implementation of the Protocol
-microservice}}{Implementation of the Protocol microservice}}\label{implementation-of-the-protocol-microservice}}
 
-\includegraphics[width=5.41531in,height=4.86478in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image64.jpg}
+\subsection{2 - Implementation of the Protocol microservice}
 
-\protect\hypertarget{_Toc201954521}{}{}Figure 45 : screenshot of the
-protocol microservice structure
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image64.jpg}
+\caption{Screenshot of the protocol microservice structure}
+\label{fig:PMS}
+\end{figure} 
+
 
 The Channel Protocol microservice is built on an abstract common SDK
 that provides the technical foundations needed to implement the
@@ -3295,20 +3010,21 @@ The CIS SDK, developed in parallel, provides all the constants,
 enumerations, and utilities necessary for the consistency and
 reliability of the processing carried out in the Protocol.
 
-\hypertarget{cis-sdk-development}{%
-\subsection{\texorpdfstring{\textbf{CIS SDK
-Development}}{CIS SDK Development}}\label{cis-sdk-development}}
 
-\includegraphics[width=5.53797in,height=2.75347in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image65.jpg}
+\subsection{3 - CIS SDK Development}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image65.jpg}
+\caption{Screenshot of the CIS SDK structure}
+\label{fig:CSS}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954522}{}{}Figure 46 : screenshot of the CIS
-SDK structure
 
 The SDK allows you to factor out all the constants, enumerations,
 utilities, and parameters needed by the Protocol and Connector
 microservices.
 
-The SDK contains:
+The SDK contains the following:
 
 \begin{itemize}
 \item
@@ -3364,8 +3080,8 @@ evolution.
 \end{quote}
 
 
-\subsection{\texorpdfstring{\textbf{Integration tests of migrated
-microservices:}}{Integration tests of migrated microservices:}}\label{integration-tests-of-migrated-microservices}
+\subsection{4 - Integration tests of migrated
+microservices:}
 
 \begin{quote}
 To prepare the integration test environment, we used Docker Desktop to
@@ -3376,10 +3092,12 @@ consumption, and easily access exposed ports, facilitating rapid
 deployment of the environment.
 \end{quote}
 
-\includegraphics[width=6.32705in,height=3.39625in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image66.jpeg}
-
-\protect\hypertarget{_Toc201954523}{}{}Figure 47 : screenshot of the
-Docker containers
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image66.jpeg}
+\caption{Screenshot of the Docker containers}
+\label{fig:DC}
+\end{figure} 
 
 \begin{quote}
 For the OpenLens setup, we added the clusters as shown in the following
@@ -3388,114 +3106,160 @@ the Services tab under Config, then searched for and clicked on the
 postgresql service The exposed port (5432) was then forwarded to the
 application.yaml file to ensure connectivity with the database.
 
-\includegraphics[width=5.22089in,height=2.82793in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image67.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image67.jpeg}
+\caption{Screenshot of Openlens : clusters}
+\label{fig:OC}
+\end{figure} 
+
 \end{quote}
-
-\protect\hypertarget{_Toc201954524}{}{}Figure : screenshot of Openlens :
-clusters
-
 \begin{quote}
-\includegraphics[width=5.2874in,height=2.86396in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image68.jpeg}
-\end{quote}
 
-\protect\hypertarget{_Toc201954525}{}{}Figure 49 : screenshot of
-Openlens : forwarding the DB postgresql
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image68.jpeg}
+\caption{Screenshot of Openlens : forwarding the DB postgresql}
+\label{fig:OFDP}
+\end{figure} 
+
+\end{quote}
+\clearpage
 
 We then launched the KafkaComposeUp task under Docker tasks :
 
-\includegraphics[width=4.60331in,height=3.66847in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image69.jpeg}
-
-\protect\hypertarget{_Toc201954526}{}{}Figure 50 : screenshot of xml
-config to read the forwarded config
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image69.jpeg}
+\caption{Screenshot of xml config to read the forwarded config}
+\label{fig:XCRFC}
+\end{figure} 
 
 Once the service is started, the Kafka environment is
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image70.jpeg}
+\caption{Screenshot of out of kafka compose up}
+\label{fig:XCRFC}
+\end{figure} 
 
-\includegraphics[width=6.29138in,height=1.53583in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image70.jpeg}
 
-\protect\hypertarget{_Toc201954527}{}{}Figure 51 : screenshot of out of
-kafka compose up
 
-\includegraphics[width=6.22934in,height=1.09292in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image71.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image71.jpeg}
+\caption{Screenshot of images up in docker}
+\label{fig:OFDP}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954528}{}{}Figure 52 : screenshot of images
-up in docker
 
 \begin{quote}
 After setting up Kafka, we started the CIS Channel connector :
 \end{quote}
 
-\includegraphics[width=6.30278in,height=3.54722in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image72.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image72.jpeg}
+\caption{Screenshot of how to lunch the connector}
+\label{fig:OFDP}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954529}{}{}Figure 53 : screenshot of how to
-lunch the connector
 
 \begin{quote}
 Once fired, the onOpenConnection event initiates sending a signon
 message to the PSTT simulator, which in turn responds.
 \end{quote}
 
-\includegraphics[width=5.3526in,height=1.31591in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image73.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image73.jpeg}
+\caption{Screenshot of the results Sending sign on message}
+\label{fig:OFDP}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954530}{}{}Figure 54 : screenshot of the
-results Sending sign on message
 
-\includegraphics[width=5.33251in,height=3.4402in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image74.jpeg}
-
-\protect\hypertarget{_Toc201954531}{}{}Figure 55 : screenshot of the
-results PSTT response
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image74.jpeg}
+\caption{Screenshot of the
+results PSTT response}
+\label{fig:RPR}
+\end{figure} 
 
 We then started the protocol microservice and the switch simulator:
 
-\includegraphics[width=5.49361in,height=3.08092in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image75.jpeg}
-
-\protect\hypertarget{_Toc201954532}{}{}Figure 56 : screenshot of how to
-lunch protocol
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image75.jpeg}
+\caption{Screenshot of steps to
+lunch protocol}
+\label{fig:SLP}
+\end{figure} 
 
 At this point, it is possible to send an authorization message from the
 PSTT simulator and observe the traces generated at each step:
 
-\includegraphics[width=5.60116in,height=4.38946in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image76.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image76.jpeg}
+\caption{Screenshot of results
+when Sending the message from the PSTT}
+\label{fig:SMP}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954533}{}{}Figure 57 : screenshot of results
-when Sending the message from the PSTT
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image77.jpeg}
+\caption{Screenshot of results
+Receiving the incoming message in the connector}
+\label{fig:RIMC}
+\end{figure} 
 
-\begin{quote}
-\includegraphics[width=5.33049in,height=2.21511in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image77.jpeg}
-\end{quote}
 
-\protect\hypertarget{_Toc201954534}{}{}Figure 58 : screenshot of results
-Receiving the incoming message in the connector
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image78.jpeg}
+\caption{Screenshot of results
+Sending the connector response to the PSTT}
+\label{fig:SCRP}
+\end{figure} 
 
-\begin{quote}
-\includegraphics[width=4.3366in,height=1.32487in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image78.jpeg}
-\end{quote}
 
-\protect\hypertarget{_Toc201954535}{}{}Figure 59 : screenshot of results
-Sending the connector response to the PSTT
 
-\begin{quote}
-\includegraphics[width=4.46344in,height=2.44683in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image79.jpeg}
-\end{quote}
 
-\protect\hypertarget{_Toc201954536}{}{}Figure 60 : screenshot of results
-Receiving the message in the protocol
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image79.jpeg}
+\caption{Screenshot of results
+receiving the message in the protocol}
+\label{fig:RRMP}
+\end{figure} 
 
-\includegraphics[width=4.25206in,height=3.16478in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image80.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image80.jpeg}
+\caption{Screenshot of results Transformation of the message to the ISO Switch protocol}
+\label{fig:RRMP}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954537}{}{}Figure 61 : screenshot of results
-Transformation of the message to the ISO Switch protocol
 
-\begin{quote}
-\includegraphics[width=4.75096in,height=3.97089in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image81.jpeg}
-\end{quote}
 
-\protect\hypertarget{_Toc201954538}{}{}Figure 62 : screenshot of results
-Receiving the response from the switch simulator
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image81.jpeg}
+\caption{Screenshot of results
+Receiving the response from the switch simulator}
+\label{fig:RRSS}
+\end{figure} 
 
-\includegraphics[width=5.06875in,height=2.37083in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image82.jpeg}
 
-\protect\hypertarget{_Toc201954539}{}{}Figure 63 : screenshot of results
-Transformation of the response to the external protocol
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{media/image82.jpeg}
+\caption{Screenshot of results
+Transformation of the response to the external protocol}
+\label{fig:RTREP}
+\end{figure} 
 
 \begin{quote}
 This sequence illustrates the complete journey of an authorization
@@ -3503,9 +3267,8 @@ message, from initiation to response, passing through all key components
 of the migrated architecture
 \end{quote}
 
-\hypertarget{conclusion-3}{%
-\subsection{\texorpdfstring{\textbf{Conclusion
-:}}{Conclusion :}}\label{conclusion-3}}
+
+\subsection{Conclusion :}
 
 \begin{quote}
 The implementation work carried out during this project made it possible
@@ -3556,14 +3319,14 @@ themes:
 This technical foundation paves the way for the evolution and future
 extension of the capabilities of the CIS protocol within the Switch V4.
 \end{quote}
+\clearpage
 
-\hypertarget{chapter-5-architecture-and-technologies}{%
-\section{\texorpdfstring{Chapter 5: Architecture and technologies
-}{Chapter 5: Architecture and technologies }}\label{chapter-5-architecture-and-technologies}}
 
-\hypertarget{introduction-3}{%
-\subsection{\texorpdfstring{\textbf{Introduction
-:}}{Introduction :}}\label{introduction-3}}
+\section{Chapter 5: Architecture and technologies
+}
+
+
+\subsection{Introduction :}
 
 \begin{quote}
 The objective of this chapter is to present the general software
@@ -3602,9 +3365,8 @@ In this chapter, we will detail:
   \end{quote}
 \end{itemize}
 
-\hypertarget{functional-architecture}{%
-\subsection{\texorpdfstring{\textbf{Functional
-architecture}}{Functional architecture}}\label{functional-architecture}}
+
+\subsection{1 - Functional architecture}
 
 \begin{quote}
 The Channel V4 architecture is based on several specialized layers:
@@ -3640,10 +3402,10 @@ This division ensures a clear separation of responsibilities and
 facilitates the maintenance and evolution of components.
 \end{quote}
 
-\hypertarget{application-architecture-from-c-monolith-to-java-microservices}{%
-\subsection{\texorpdfstring{\textbf{Application architecture: from C
+
+\subsection{2 - Application architecture: from C
 monolith to Java microservices
-:}}{Application architecture: from C monolith to Java microservices :}}\label{application-architecture-from-c-monolith-to-java-microservices}}
+:}
 
 \begin{quote}
 The CIS (Channel Interface System) protocol implementation has
@@ -3790,18 +3552,20 @@ to SOLID principles. This design emphasizes:
   \end{itemize}
 \end{itemize}
 
-\hypertarget{main-technologies-used}{%
-\subsection{\texorpdfstring{\textbf{Main technologies
-used~:}}{Main technologies used~:}}\label{main-technologies-used}}
-
+\subsection{3 - Main technologies
+used :}
 \begin{quote}
 The development is based on a modern technological foundation consistent
 with industry standards:
 \end{quote}
 
-\includegraphics[width=2.69689in,height=1.41094in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image83.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=2in]{media/image83.png}
+\caption{Spring boot logo}
+\label{fig:SBL}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954540}{}{}Figure 64 : spring boot logo
 
 \begin{quote}
 In the backend part of the application, the company required us to use
@@ -3843,10 +3607,14 @@ dependencies, which standardized the configuration and reduced the risk
 of errors.
 \end{quote}
 
-\includegraphics[width=2.96244in,height=0.98737in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image84.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=2in]{media/image84.png}
+\caption{Spring integration
+logo}
+\label{fig:SIL}
+\end{figure} 
 
-\protect\hypertarget{_Toc201954541}{}{}Figure 65 : spring integration
-logo
 
 \begin{quote}
 Spring Integration makes it easy to implement complex message flows
@@ -3854,49 +3622,30 @@ between components:
 \end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  It provides communication channels (MessageChannel),
-  \end{quote}
-\item
-  \begin{quote}
-  adapters (KafkaAdapter),
-  \end{quote}
-\item
-  \begin{quote}
-  routers and filters.
-  \end{quote}
+\item It provides communication channels (MessageChannel),
+\item adapters (KafkaAdapter),
+\item routers and filters.
 \end{itemize}
 
-\begin{quote}
 This allows for the construction of robust, easily testable and reusable
 flows.
 
 Channels used:
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  QueueChannel
-  \end{quote}
-\item
-  \begin{quote}
-  PriorityChannel
-  \end{quote}
-\item
-  \begin{quote}
-  DirectChannel
-  \end{quote}
-\item
-  \begin{quote}
-  ExecutorChannel
-  \end{quote}
+\item QueueChannel
+\item PriorityChannel
+\item DirectChannel
+\item ExecutorChannel
 \end{itemize}
+\clearpage
 
-\includegraphics[width=2.2099in,height=1.10236in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image85.png}
-
-\protect\hypertarget{_Toc201954542}{}{}Figure 66 : kafka logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.5in]{media/image85.png}
+\caption{kafka logo}
+\label{fig:SIL}
+\end{figure} 
 
 \begin{quote}
 In the backend, the company imposed the use of Apache Kafka, an
@@ -3926,11 +3675,14 @@ and asynchronous communication of our system, allowing us to build
 robust, scalable data pipelines that can be easily interfaced with
 various technologies (databases, APIs, legacy systems, cloud, etc.),
 while ensuring the consistency and resilience of distributed processing.
-
-\includegraphics[width=1.06925in,height=1.10236in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image86.png}
 \end{quote}
 
-\protect\hypertarget{_Toc201954543}{}{}Figure 67 : postgres logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=1in]{media/image86.png}
+\caption{Postgres logo}
+\label{fig:SIL}
+\end{figure} 
 
 \begin{quote}
 Relational database used primarily by Switch components. In this
@@ -3938,20 +3690,18 @@ project, it is mainly used for:
 \end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  store configuration settings,
-  \end{quote}
-\item
-  \begin{quote}
-  manage session metadata.
-  \end{quote}
+\item store configuration settings,
+\item manage session metadata.
 \end{itemize}
 
-\includegraphics[width=3.41865in,height=0.86614in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image87.png}
 
-\protect\hypertarget{_Toc201954544}{}{}Figure 68 : RocksDB logo
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=2in]{media/image87.png}
+\caption{RocksDB logo}
+\label{fig:SIL}
+\end{figure} 
 \begin{quote}
 \textbf{RocksDB} is an ultra-fast embedded key-value database.\\
 It is used locally in the Protocol microservice to:
@@ -3959,22 +3709,19 @@ It is used locally in the Protocol microservice to:
 
 \begin{itemize}
 \item
-  \begin{quote}
   temporarily store authorization contexts,
-  \end{quote}
 \item
-  \begin{quote}
   allow the correlation between a request and its response,
-  \end{quote}
 \item
-  \begin{quote}
   ensure reliable management even if the microservice is restarted
-  \end{quote}
 \end{itemize}
 
-\includegraphics[width=2.91888in,height=1.02362in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image88.png}
-
-\protect\hypertarget{_Toc201954545}{}{}Figure 69 : Open Telemetry logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=2in]{media/image88.png}
+\caption{Open Telemetry logo}
+\label{fig:otel-logo}
+\end{figure}
 
 \begin{quote}
 In distributed and microservice architectures, observability has become
@@ -4005,9 +3752,12 @@ optimizes system monitoring, establishing itself as the leading solution
 for cloud-native observability.
 \end{quote}
 
-\includegraphics[width=2.8405in,height=1.10236in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image89.png}
-
-\protect\hypertarget{_Toc201954546}{}{}Figure 70 : Open Lens logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=2in]{media/image89.png}
+\caption{OpenLens logo}
+\label{fig:openlens-logo}
+\end{figure}
 
 \begin{quote}
 \textbf{Open Lens} is a lightweight graphical interface for monitoring
@@ -4017,27 +3767,23 @@ project, OpenLens was used to:
 
 \begin{itemize}
 \item
-  \begin{quote}
   monitor the status of deployed pods (Protocol, Connector, Switch,
   etc.),
-  \end{quote}
 \item
-  \begin{quote}
   check logs in real time,
-  \end{quote}
 \item
-  \begin{quote}
   restart pods when the application is updated,
-  \end{quote}
 \item
-  \begin{quote}
   control persistent volumes (RocksDB...).
-  \end{quote}
 \end{itemize}
 
-\includegraphics[width=3.55984in,height=1in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image90.png}
+\begin{figure}[H]
+\centering
+\includegraphics[width=4in]{media/image90.png}
+\caption{Docker logo}
+\label{fig:docker-logo}
+\end{figure}
 
-\protect\hypertarget{_Toc201954547}{}{}Figure 71 : Docker logo
 
 \begin{quote}
 \textbf{Docker} allows you to create local test environments for
@@ -4046,18 +3792,12 @@ microservices:
 
 \begin{itemize}
 \item
-  \begin{quote}
   protocol and connector can be run in isolated containers,
-  \end{quote}
 \item
-  \begin{quote}
   the developer can test Kafka streams by simulating a complete
-  environment,
-  \end{quote}
+  environment.
 \item
-  \begin{quote}
   also allows you to launch a local Kafka for processing validation.
-  \end{quote}
 \end{itemize}
 
 \begin{quote}
@@ -4065,9 +3805,13 @@ This makes testing easier without relying on a remote Kubernetes
 cluster.
 \end{quote}
 
-\includegraphics[width=3.1488in,height=0.87083in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image91.jpeg}
+\begin{figure}[H]
+\centering
+\includegraphics[width=3in]{media/image91.jpeg}
+\caption{Gradle logo}
+\label{fig:gradle-logo}
+\end{figure}
 
-\protect\hypertarget{_Toc201954548}{}{}Figure 72 : Gradle logo
 
 \begin{quote}
 To automate the compilation, dependency management, and deployment of
@@ -4088,22 +3832,16 @@ development cycle, ensuring reliable deliveries, and facilitating the
 maintenance of large-scale applications.
 \end{quote}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4234}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5766}}@{}}
-\toprule()
-\begin{minipage}[b]{\linewidth}\raggedright
-\includegraphics[width=1.10236in,height=1.10236in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image92.png}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\includegraphics[width=1.55685in,height=1.10236in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image93.png}
-\end{minipage} \\
-\midrule()
-\endhead
-\bottomrule()
-\end{longtable}
+\begin{figure}[H]
+\centering
+\begin{tabular}{@{}c@{}c@{}}
+\includegraphics[width=1in,height=1in]{media/image92.png} &
+\includegraphics[width=1in,height=1in]{media/vscode.png}
+\end{tabular}
+\caption{Logo Vs Code and Intellij}
+\label{fig:Vscode-Intellij}
+\end{figure}
 
-\protect\hypertarget{_Toc201954549}{}{}Figure : : Intellij and Vs Code
-logo
 
 \begin{quote}
 For development:
@@ -4111,73 +3849,47 @@ For development:
 
 \begin{itemize}
 \item
-  \begin{quote}
   \textbf{IntelliJ IDEA} was the main environment for the Java part
   (Protocol, Connector, SDK). Thanks to its advanced features:
-  \end{quote}
 
   \begin{itemize}
   \item
-    \begin{quote}
-    smart completion,
-    \end{quote}
+    Smart completion.
   \item
-    \begin{quote}
-    powerful refactoring,
-    \end{quote}
+    Powerful refactoring.
+    
   \item
-    \begin{quote}
-    static analysis tools,
-    \end{quote}
+    Static analysis tools.
   \item
-    \begin{quote}
-    quick navigation in the code,
-    \end{quote}
+    Quick navigation in the code,
   \item
-    \begin{quote}
-    ultra-productive shortcuts (top-tier for Java), it has allowed gains
-    in efficiency and code quality.
-    \end{quote}
+    Ultra-productive shortcuts (top-tier for Java), it has allowed gains in efficiency and code quality.
   \end{itemize}
 \item
-  \begin{quote}
   \textbf{Visual Studio Code} was preferred for consulting and analyzing
   legacy C code. Its lighter interface, adapted to C projects,
   facilitated:
-  \end{quote}
 
   \begin{itemize}
   \item
-    \begin{quote}
-    reading source files,
-    \end{quote}
+    Reading source files.
   \item
-    \begin{quote}
-    analysis of existing algorithms,
-    \end{quote}
+    Analysis of existing algorithms.
   \item
-    \begin{quote}
-    the migration of processing to Java.
-    \end{quote}
+    The migration of processing to Java.
   \end{itemize}
 \end{itemize}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4360}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5640}}@{}}
-\toprule()
-\begin{minipage}[b]{\linewidth}\raggedright
-\includegraphics[width=1.14173in,height=1.14173in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image94.png}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\includegraphics[width=1.52143in,height=1.14173in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image95.png}
-\end{minipage} \\
-\midrule()
-\endhead
-\bottomrule()
-\end{longtable}
+\begin{figure}[H]
+\centering
+\begin{tabular}{@{}c@{}c@{}}
+\includegraphics[width=1.5in,height=1.5in]{media/image94.png} &
+\includegraphics[width=1.5in,height=1.5in]{media/image95.png}
+\end{tabular}
+\caption{Git and bit bucket}
+\label{fig:git-bitbucket}
+\end{figure}
 
-\protect\hypertarget{_Toc201954550}{}{}Figure 74 : Git and BitBucket
-logo
 
 \begin{quote}
 The project\textquotesingle s source code is versioned on Bitbucket,
@@ -4185,29 +3897,20 @@ with full management in Git. This has allowed:
 \end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  a branch work (feature / fix / release),
-  \end{quote}
-\item
-  \begin{quote}
-  precise tracking of commits,
-  \end{quote}
-\item
-  \begin{quote}
-  code reviews (pull requests),
-  \end{quote}
-\item
-  \begin{quote}
-  a complete history of technical developments.
-  \end{quote}
+\item A branch work (feature / fix / release).
+\item Precise tracking of commits.
+\item Code reviews (pull requests).
+\item A complete history of technical developments.
 \end{itemize}
+\clearpage
 
-\begin{quote}
-\includegraphics[width=1.97151in,height=1.1981in]{vertopal_d1b0b2209edd4c6aa8254f57daa0953b/media/image96.png}
-\end{quote}
 
-\protect\hypertarget{_Toc201954551}{}{}Figure 75 : ElasticSearch logo
+\begin{figure}[H]
+\centering
+\includegraphics[width=2.5in]{media/image96.png}
+\caption{ElasticSearch logo}
+\label{fig:elasticsearch-logo}
+\end{figure}
 
 \begin{quote}
 Elasticsearch is a distributed search and analytics engine, scalable
@@ -4235,9 +3938,9 @@ it powers these Elastic solutions and use cases:
   security analytics to protect your organization at scale.
 \end{itemize}
 
-\hypertarget{java-vs-c-migration}{%
-\subsection{\texorpdfstring{\textbf{Java vs C
-Migration}}{Java vs C Migration}}\label{java-vs-c-migration}}
+
+\subsection{4 - Java vs C
+Migration}
 
 \begin{quote}
 The project required migrating from a legacy (monolithic) C codebase to
@@ -4247,131 +3950,61 @@ standards used in the PowerCARD V4 ecosystem.
 This technological change has brought many benefits:
 
 \textbf{Improved security and memory management}
-\end{quote}
+
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Automatic garbage collection management
-  \end{quote}
-\item
-  \begin{quote}
-  Better control of memory issues (no manual allocation)
-  \end{quote}
+\item Automatic garbage collection management.
+\item Better control of memory issues (no manual allocation).
 \end{itemize}
 
-\begin{quote}
 \textbf{Increased productivity for developers}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Higher-level, simpler, and more readable syntax
-  \end{quote}
-\item
-  \begin{quote}
-  Advanced support by modern IDEs (IntelliJ IDEA, Eclipse)
-  \end{quote}
+\item Higher-level, simpler, and more readable syntax.
+\item Advanced support by modern IDEs (IntelliJ IDEA, Eclipse).
 \end{itemize}
 
-\begin{quote}
 \textbf{Easier maintenance and better code readability}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Native exception handling
-  \end{quote}
-\item
-  \begin{quote}
-  Object-oriented programming (OOP): modular architecture, better
-  structured code
-  \end{quote}
+\item Native exception handling.
+\item Object-oriented programming (OOP): modular architecture, better structured code.
 \end{itemize}
 
-\begin{quote}
 \textbf{Rich ecosystem and extensive support}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Access to many standard libraries (Spring, Hibernate, OpenTelemetry,
-  etc.)
-  \end{quote}
-\item
-  \begin{quote}
-  Large community and abundant documentation
-  \end{quote}
+\item Access to many standard libraries (Spring, Hibernate, OpenTelemetry, etc.).
+\item Large community and abundant documentation.
 \end{itemize}
 
-\begin{quote}
 \textbf{Platform independence}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  ``Write Once, Run Anywhere'' thanks to the JVM
-  \end{quote}
-\item
-  \begin{quote}
-  Cross-platform portability without recompilation
-  \end{quote}
+\item ``Write Once, Run Anywhere'' thanks to the JVM.
+\item Cross-platform portability without recompilation.
 \end{itemize}
 
-\begin{quote}
 \textbf{Better compatibility with modern technologies}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  In C/C++, it is often complex to find libraries compatible with the
-  latest microservice technologies (Kafka, gRPC, etc.)
-  \end{quote}
-\item
-  \begin{quote}
-  In Java, the ecosystem is mature for modern distributed architectures
-  \end{quote}
+\item In C/C++, it is often complex to find libraries compatible with the latest microservice technologies (Kafka, gRPC, etc.).
+\item In Java, the ecosystem is mature for modern distributed architectures.
 \end{itemize}
 
-\begin{quote}
 \textbf{Optimizing DevOps cycles}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  In C/C++, maintaining Docker images is expensive: frequent updates are
-  needed to maintain security and version compatibility.
-  \end{quote}
-\item
-  \begin{quote}
-  In Java, integration with CI/CD tools is easier, with more stable
-  containerized images.
-  \end{quote}
+\item In C/C++, maintaining Docker images is expensive: frequent updates are needed to maintain security and version compatibility.
+\item In Java, integration with CI/CD tools is easier, with more stable containerized images.
 \end{itemize}
 
-\begin{quote}
 \textbf{Limits observed:}
-\end{quote}
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Higher memory overhead (JVM related).
-  \end{quote}
-\item
-  \begin{quote}
-  CPU performance sometimes lower on certain critical cases.
-  \end{quote}
-\item
-  \begin{quote}
-  More verbose syntax than C.
-  \end{quote}
+\item Higher memory overhead (JVM related).
+\item CPU performance sometimes lower on certain critical cases.
+\item More verbose syntax than C.
 \end{itemize}
 
 \begin{quote}
@@ -4380,11 +4013,10 @@ and compatibility with the microservices ecosystem fully justify this
 technological migration. This transformation has made it possible to
 thoroughly modernize the software architecture of the CIS solution.
 \end{quote}
+\end{quote}
 
-\hypertarget{conclusion-4}{%
-\subsection{\texorpdfstring{\textbf{Conclusion
-:}}{Conclusion :}}\label{conclusion-4}}
 
+\subsection{Conclusion :}
 \begin{quote}
 The transition from a monolithic C architecture to a modern architecture
 based on Java Spring Boot microservices has enabled a profound
@@ -4396,26 +4028,15 @@ approach has considerably improved the modularity, maintainability and
 scalability of the system.
 
 The choices made today offer:
-\end{quote}
+
 
 \begin{itemize}
-\item
-  \begin{quote}
-  Better resilience of components,
-  \end{quote}
-\item
-  \begin{quote}
-  Fine scalability per service,
-  \end{quote}
-\item
-  \begin{quote}
-  Easy integration into CI/CD pipelines,
-  \end{quote}
-\item
-  \begin{quote}
-  Compatibility with current standards of the digital banking ecosystem.
-  \end{quote}
+\item Better resilience of components.
+\item Fine scalability per service.
+\item Easy integration into CI/CD pipelines.
+\item Compatibility with current standards of the digital banking ecosystem.
 \end{itemize}
+\end{quote}
 
 \begin{quote}
 The technologies used also guarantee optimal interoperability with
@@ -4429,9 +4050,9 @@ The project thus constitutes a solid foundation for future developments
 of the CIS protocol in the PowerCARD V4 ecosystem.
 \end{quote}
 
-\hypertarget{general-conclusion}{%
-\section{\texorpdfstring{\textbf{General
-conclusion:}}{General conclusion:}}\label{general-conclusion}}
+\clearpage
+
+\section{General conclusion:}
 
 \begin{quote}
 This final year project was for me a real immersion into the
@@ -4471,7 +4092,7 @@ with a better understanding of modern software architectures and a
 strong motivation to pursue my career in the development of critical and
 innovative solutions.
 \end{quote}
-
+\clearpage
 
 \section{Bibliography:}
 \begin{itemize}
